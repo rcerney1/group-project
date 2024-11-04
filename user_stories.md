@@ -97,5 +97,17 @@
     - As a registered user, I will be able to checkout items in my shopping cart:
         - checking out will redirect me to a page that confirms my purchase.
 
+# Favorites
+# View Favorite Products
+    - As a registered user, I will be able to view all products I have favorited:
+        - There will be a favorites button in my navigation bar that redirects me to a favorites page:
+            - Page will display products similar to the home page, for products I have favorited
+# Add Favorite Products
+    - As a registered user, I will have the option to favorite any product:
+        - On product detail page, there will be an option to favorite a product
+            - Products will be added to a favorites page when selected
 
- 
+# Delete Favorite Products
+  - As a registered user, I will have the option to remove a product from favorites page:
+    - On product detail page, there will be an option to favorite/unfavorite a product
+        - Products will be removed from favorites page when deselected
