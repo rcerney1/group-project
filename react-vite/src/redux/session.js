@@ -70,7 +70,8 @@ export const thunkLogout = () => async (dispatch) => {
 };
 
 export const createImage = (post) => async (dispatch) => {
-  const response = await fetch(`/images/new`, {
+  print("image thunk")
+  const response = await fetch(`/api/images`, {
     method: "POST",
     body: post
   });
@@ -83,7 +84,7 @@ export const createImage = (post) => async (dispatch) => {
   }
 };
 
-const initialState = { user: null };
+const initialState = { user: null, images: [] };
 
 function sessionReducer(state = initialState, action) {
   switch (action.type) {
@@ -91,6 +92,8 @@ function sessionReducer(state = initialState, action) {
       return { ...state, user: action.payload };
     case REMOVE_USER:
       return { ...state, user: null };
+    case ADD_IMAGE:
+      return {...state, images: [...state.images, action.payload]}  
     default:
       return state;
   }

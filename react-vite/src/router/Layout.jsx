@@ -14,6 +14,8 @@ export default function Layout() {
 
   return (
     <>
+       <h1>Hello World</h1>
+       <img width={500} height={300} src="https://my-demo-class-bucket.s3.us-east-1.amazonaws.com/0955d5f91a2746c5942ebf0588c69b67.jpg" />
       <ModalProvider>
         <Navigation />
         {isLoaded && <Outlet />}

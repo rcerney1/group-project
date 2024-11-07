@@ -13,6 +13,7 @@ const ImageForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
+        console.log(formData)
         formData.append("image", image);
         
         // aws uploads can be a bit slow—displaying

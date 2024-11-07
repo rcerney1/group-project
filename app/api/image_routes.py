@@ -8,17 +8,18 @@ from app.api.aws_helper import (
 image_routes = Blueprint("images", __name__)
 
 
-@image_routes.route("", methods=["POST"])
+@image_routes.route("/", methods=["POST"])
 @login_required
 def upload_image():
-    form = ImageForm()
     
+    form = ImageForm()
+    print("COOKIE:", request.cookies["csrf_token"])
     form["csrf_token"].data = request.cookies["csrf_token"]
     
     if form.validate_on_submit():
           
         image = form.data["image"]
-        # image.filename = get_unique_filename(image.filename)
+        image.filename = get_unique_filename(image.filename)
         upload = upload_file_to_s3(image)
         print(upload)
 
