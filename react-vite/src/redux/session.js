@@ -1,5 +1,11 @@
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
+const ADD_IMAGE = 'session/addImage';
+
+const addImage = (payload) => ({
+  type: ADD_IMAGE,
+  payload
+})
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -61,6 +67,20 @@ export const thunkSignup = (user) => async (dispatch) => {
 export const thunkLogout = () => async (dispatch) => {
   await fetch("/api/auth/logout");
   dispatch(removeUser());
+};
+
+export const createImage = (post) => async (dispatch) => {
+  const response = await fetch(`/images/new`, {
+    method: "POST",
+    body: post
+  });
+
+  if (response.ok) {
+      const { resPost } = await response.json();
+      dispatch(addImage(resPost));
+  } else {
+      console.log("There was an error making your post!")
+  }
 };
 
 const initialState = { user: null };
