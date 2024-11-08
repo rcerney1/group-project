@@ -15,7 +15,7 @@ class CartItem(db.Model):
     product_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('products.id')), nullable=False)
 
     # Relationships
-    carts = db.relationship("Cart", back_populates="cart_items")
+    cart = db.relationship("Cart", back_populates="cart_items")
     products = db.relationship("Product", back_populates="cart_items")
 
 
@@ -46,7 +46,7 @@ class Cart(db.Model):
     # Relationships
     user = db.relationship("User", back_populates="carts")
     cart_items = db.relationship(
-        "CartItem", back_populates="cart", cascade="all, delete-orphan"
+        "CartItem", back_populates="carts", cascade="all, delete-orphan"
     )
 
     def to_dict(self):
