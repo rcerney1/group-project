@@ -1,6 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
-
+#
 
 class CartItem(db.Model):
     __tablename__ ='cart_items'
@@ -33,7 +33,7 @@ class Cart(db.Model):
     __tablename__ = "carts"
 
     if environment == "production":
-        table_args = {'schema': SCHEMA}
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(
