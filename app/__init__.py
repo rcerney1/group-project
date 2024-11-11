@@ -7,15 +7,12 @@ from flask_login import LoginManager
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.cart_routes import cart_routes
 from .api.product_routes import product_routes
 from .api.review_routes import review_routes
 from .seeds import seed_commands
 from .config import Config
 
-#-------------------------------------------
-# from .api.favorites_routes import favorites_routes
-
-#-------------------------------------------
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 
@@ -35,6 +32,7 @@ app.cli.add_command(seed_commands)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
+app.register_blueprint(cart_routes, url_prefix='/api/carts')
 app.register_blueprint(product_routes, url_prefix='/api/products')
 app.register_blueprint(review_routes, url_prefix='/api')
 db.init_app(app)
@@ -43,10 +41,6 @@ Migrate(app, db)
 # Application Security
 CORS(app)
 
-#------------------------------------------------
-
-# app.register_blueprint(favorites_routes)
-#-------------------------------------------------
 
 # Since we are deploying with Docker and Flask,
 # we won't be using a buildpack when we deploy to Heroku.
