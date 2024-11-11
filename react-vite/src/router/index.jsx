@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
+import ProductDetailsPage from '../components/ProductDetailsPage';
 import Layout from './Layout';
 import OpenModalButton from '../components/OpenModalButton/OpenModalButton.jsx'
 import CreateReviewModal from '../components/CreateReviewModal/CreateReviewModal.jsx';
@@ -24,6 +25,14 @@ export const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupFormPage />,
+      },
+      {
+        path: "/products/:productid",
+        element: <ProductDetailsPage />,
+      },
+      {
+        path: "*",
+        element: <h1>Page Does Not Exist</h1>,
       },
       // {
       //   path: "/test-review",
