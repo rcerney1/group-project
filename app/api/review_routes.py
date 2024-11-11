@@ -15,12 +15,13 @@ def create_review(product_id):
     #check if product exists
     product = Product.query.get(product_id)
     if not product:
-        return ({'message': "Product could't be found"})
+        return ({'errors': ["Product could't be found"]})
     
     #check if user already has reviewed product
     existing_review = Review.query.filter_by(product_id=product_id, user_id=current_user.id).first()
     if existing_review:
-        return {"message": "User already has a review for this product"}, 403
+        print("User has already submited a review")
+        return {"errors": ["User already has a review for this product"]}, 403
     
     form = ReviewForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -79,7 +80,8 @@ def delete_review(review_id):
     review = Review.query.get(review_id)
 
     if not review:
-        return {'message': "Review couldn't be found"}
+        return {'errors': ["Review couldn't be found"]}
+    
     db.session.delete(review)
     db.session.commit()
     return {'message': 'Successfully deleted'}, 200

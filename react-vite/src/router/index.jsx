@@ -2,6 +2,12 @@ import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
+import OpenModalButton from '../components/OpenModalButton/OpenModalButton.jsx'
+import CreateReviewModal from '../components/CreateReviewModal/CreateReviewModal.jsx';
+
+// //! dummy for testing
+// const user = { id: 1, name: "Test User" }; 
+// //!
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +25,18 @@ export const router = createBrowserRouter([
         path: "signup",
         element: <SignupFormPage />,
       },
+      // {
+      //   path: "/test-review",
+      //   element: (
+      //       <div>
+      //           <h1>Test the Review Modal</h1>
+      //           <OpenModalButton
+      //               modalComponent={<CreateReviewModal productId={1} user={user} />}
+      //               buttonText="Open Review Modal"
+      //           />
+      //       </div>
+      //   ),
+      // }
     ],
   },
 ]);
