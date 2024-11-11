@@ -14,11 +14,16 @@ class Favorite(db.Model):
 
     # Relationships 
     user = db.relationship('User', back_populates='favorites')
-    products = db.relationship('Product', back_populates='favorites')
+    product = db.relationship('Product', back_populates='favorites')
+    #it was "pproducts" before
 
-    def to_dict(self):
-        return {
+    
+    def to_dict(self, include_product=False):
+        data = {
             'id': self.id,
             'product_id': self.product_id,
             'user_id': self.user_id,
         }
+        if include_product and self.product:
+            data['product'] = self.product.to_dict()
+        return data
