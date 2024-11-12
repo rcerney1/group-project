@@ -11,7 +11,7 @@ import { fetchProductReviews } from "../../redux/reviews.js";
 
 function ProductDetailsPage() {
     const dispatch = useDispatch();
-    const { productid } = useParams();
+    const { productId } = useParams();
     const productDetails = useSelector(state => state.products.productDetails);
     const reviews = useSelector(state => state.reviews.reviews);
     console.log('REVIEWS', reviews)
@@ -19,9 +19,9 @@ function ProductDetailsPage() {
     console.log('CurrentUser', currentUser)
     console.log('ProductDetails', productDetails)
     useEffect(() => {
-        dispatch(fetchProductDetails(productid))
-        dispatch(fetchProductReviews(productid))
-    }, [dispatch, productid])
+        dispatch(fetchProductDetails(productId))
+        dispatch(fetchProductReviews(productId))
+    }, [dispatch, productId])
 
 
     if (!productDetails) return <div>Loading...</div>;
@@ -121,7 +121,7 @@ function ProductDetailsPage() {
                             {currentUser?.id === review.userId && (
                             <OpenModalButton
                                 buttonText="Delete"
-                                modalComponent={<DeleteReviewModal reviewId={review.id} productId={productid} />}
+                                modalComponent={<DeleteReviewModal reviewId={review.id} productId={productId} />}
                                 
                             />
                         )}
