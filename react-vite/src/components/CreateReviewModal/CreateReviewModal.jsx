@@ -11,7 +11,7 @@ function CreateReviewModal({ productId }) {
     const [stars, setStars] = useState(0);
     const [hoveredStars, setHoveredStars] = useState(0);
     const [serverError, setServerError] = useState(null);
-
+    console.log("CreateReviewModal rendered");
     useEffect(() => {
         setReview("");
         setStars(0);
@@ -38,9 +38,6 @@ function CreateReviewModal({ productId }) {
     };
 
     const isSubmitDisabled = review.length < 10 || stars === 0;
-
-    
-    
 
     return (
         <div className="review-modal-container">
