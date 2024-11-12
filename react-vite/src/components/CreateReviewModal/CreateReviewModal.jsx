@@ -4,7 +4,7 @@ import { useModal } from '../../context/Modal.jsx'
 import { thunkCreateReview } from "../../redux/reviews.js";
 import './CreateReviewModal.css'
 
-function CreateReviewModal({ productId, user, hasReviewed, isOwner }) {
+function CreateReviewModal({ productId }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const [review, setReview] = useState("");
@@ -30,6 +30,7 @@ function CreateReviewModal({ productId, user, hasReviewed, isOwner }) {
 
         const result = await dispatch(thunkCreateReview(productId, reviewData));
         if (result.errors) {
+            console.log(result.errors)
             setServerError(result.errors)
         } else {
             closeModal();
@@ -38,7 +39,8 @@ function CreateReviewModal({ productId, user, hasReviewed, isOwner }) {
 
     const isSubmitDisabled = review.length < 10 || stars === 0;
 
-    if (isOwner || hasReviewed || !user) return null;
+    
+    
 
     return (
         <div className="review-modal-container">
@@ -47,7 +49,7 @@ function CreateReviewModal({ productId, user, hasReviewed, isOwner }) {
                 {serverError && (
                     <div className='error-messages'>
                         {serverError.map((error, index) => (
-                            <p key={index} className='error'>{error}</p>
+                            <p key={index} className="error">{error}</p>
                         ))}
                     </div>
                 )}

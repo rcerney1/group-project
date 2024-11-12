@@ -6,12 +6,16 @@ import {
 } from "redux";
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
-import reviewsReducer from "./reviews";
+import productsReducer from "./products";
+import favoritesReducer from './favorites';
+import reviewsReducter from "./reviews";
 import cartReducer from "./cart";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
-  reviews: reviewsReducer,
+  products: productsReducer,
+  favorites: favoritesReducer,
+  reviews: reviewsReducter,
   cart:cartReducer,
 });
 
