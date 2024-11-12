@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, useNavigate } from "react-router-dom"
-import { fetchProductDetails, updateProduct } from "../../redux/product";
+import { fetchProductDetails, updateProductById } from "../../redux/products";
 
 
 const UpdateProductForm = () => {
@@ -40,7 +40,7 @@ const UpdateProductForm = () => {
       setErrors({}); 
   
       try {
-        const result = await dispatch(updateProduct(productId, updatedProduct));
+        const result = await dispatch(updateProductById(productId, updatedProduct));
   
         if (result.errors) {
           setErrors(result.errors); 
