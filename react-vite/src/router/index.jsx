@@ -8,7 +8,8 @@ import Favorites from '../components/Favorites/Favorites';
 import OpenModalButton from '../components/OpenModalButton/OpenModalButton.jsx'
 import CreateReviewModal from '../components/CreateReviewModal/CreateReviewModal.jsx';
 import DeleteReviewModal from '../components/DeleteReviewModal/DeleteReviewModal.jsx';
-
+import CartPage from '../components/Cart';
+import PurchasePage from '../components/PurchaseConfirm';
 
 
 export const router = createBrowserRouter([
@@ -26,6 +27,14 @@ export const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupFormPage />,
+      },
+      {
+        path:"cart",
+        element:<CartPage />
+      },
+      {
+        path:"checkout",
+        element:<PurchasePage />
       },
       {
         path: "products",  
