@@ -3,25 +3,31 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import'./ProductDetailsPage.css';
 import OpenModalButton from '../OpenModalButton'
+import CreateReviewModal from "../CreateReviewModal/CreateReviewModal.jsx";
+import DeleteReviewModal from "../DeleteReviewModal/DeleteReviewModal.jsx";
 import { fetchProductDetails } from "../../redux/product";
+import { fetchProductReviews } from "../../redux/reviews.js";
 
 
 function ProductDetailsPage() {
     const dispatch = useDispatch();
     const { productid } = useParams();
     const productDetails = useSelector(state => state.products.productDetails);
-    // const reviews = useSelector();
+    const reviews = useSelector(state => state.reviews.reviews);
+    console.log('REVIEWS', reviews)
     const currentUser = useSelector(state => state.session.user);
-
+    console.log('CurrentUser', currentUser)
+    console.log('ProductDetails', productDetails)
     useEffect(() => {
         dispatch(fetchProductDetails(productid))
+        dispatch(fetchProductReviews(productid))
     }, [dispatch, productid])
 
 
     if (!productDetails) return <div>Loading...</div>;
 
-    // const userHasPostedReview = reviews.some((review) => review.userId === currentUser?.id);
-    // const isProductOwner = currentUser?.id === productDetails.Owner?.id;
+    const userHasPostedReview = reviews.some((review) => review.user_id === currentUser?.id);
+    const isProductOwner = currentUser?.id === productDetails.Owner?.id;
 
     const handleAddtoCartClick = () => {
         alert("Feature Coming Soon..."); 
@@ -74,7 +80,7 @@ function ProductDetailsPage() {
             </div>
             <hr/>
     
-            {/* <div>
+            <div>
                 <h3>Reviews</h3>
                 <div>
                     <div>
@@ -92,21 +98,21 @@ function ProductDetailsPage() {
                     {currentUser && !userHasPostedReview && !isProductOwner && (
                         <OpenModalButton
                             buttonText="Post Your Review"
-                            modalComponent={<CreateReviewForm productId={productid} />}
+                            modalComponent={<CreateReviewModal productId={productid} />}
                             onModalClose={() => {}}
                         />
                     )}
                 </div>
     
                 <div>
-        {Array.isArray(reviews) && reviews.length > 0 ? (
-            reviews
-                .slice() 
-                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) 
-                .map((review) => (
+                    {Array.isArray(reviews) && reviews.length > 0 ? (
+                    reviews
+                    .slice() 
+                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) 
+                    .map((review) => (
                     <div key={review.id}>
                         <div>
-                            <div>{review.User?.firstName}</div>
+                            <div>{review.user?.first_name}</div>
                             <div>
                                 {new Date(review.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' })}
                             </div>
@@ -125,7 +131,7 @@ function ProductDetailsPage() {
             <div>Be the first to post a review!</div>
          )}
                 </div>
-            </div> */}
+            </div>
         </div>
     );
     }

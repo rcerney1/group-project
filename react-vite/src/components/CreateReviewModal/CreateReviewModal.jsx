@@ -4,14 +4,14 @@ import { useModal } from '../../context/Modal.jsx'
 import { thunkCreateReview } from "../../redux/reviews.js";
 import './CreateReviewModal.css'
 
-function CreateReviewModal({ productId, user, hasReviewed, isOwner }) {
+function CreateReviewModal({ productId }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const [review, setReview] = useState("");
     const [stars, setStars] = useState(0);
     const [hoveredStars, setHoveredStars] = useState(0);
     const [serverError, setServerError] = useState(null);
-
+    console.log("CreateReviewModal rendered");
     useEffect(() => {
         setReview("");
         setStars(0);
@@ -38,7 +38,6 @@ function CreateReviewModal({ productId, user, hasReviewed, isOwner }) {
 
     const isSubmitDisabled = review.length < 10 || stars === 0;
 
-    if (isOwner || hasReviewed || !user) return null;
 
     return (
         <div className="review-modal-container">
