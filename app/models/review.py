@@ -24,4 +24,8 @@ class Review(db.Model):
             'user_id': self.user_id,
             'review': self.review,
             'stars': self.stars,
+            'user': {
+                'first_name': self.user.first_name,
+                'last_name': self.user.last_name
+            }
         }
