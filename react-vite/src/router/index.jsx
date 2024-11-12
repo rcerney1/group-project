@@ -3,12 +3,15 @@ import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import ProductDetailsPage from '../components/ProductDetailsPage';
 import Layout from './Layout';
+import Products from '../components/Products/Products';
+import Favorites from '../components/Favorites/Favorites';
 import OpenModalButton from '../components/OpenModalButton/OpenModalButton.jsx'
 import CreateReviewModal from '../components/CreateReviewModal/CreateReviewModal.jsx';
 
 // //! dummy for testing
 // const user = { id: 1, name: "Test User" }; 
 // //!
+
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +28,14 @@ export const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupFormPage />,
+      },
+      {
+        path: "products",  
+        element: <Products />,  
+      },
+      {
+        path: "favorites",  
+        element: <Favorites />,  
       },
       {
         path: "/products/:productid",
@@ -46,6 +57,7 @@ export const router = createBrowserRouter([
       //       </div>
       //   ),
       // }
+
     ],
   },
 ]);

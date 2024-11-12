@@ -61,7 +61,7 @@ def delete_favorite(favorite_id):
 
 
 #---------------------------------------------------------------------------
-    # {
-    #   "email": "demo@aa.io",
-    #   "password": "password"
-    # }
+    {
+      "email": "demo@aa.io",
+      "password": "password"
+    }
