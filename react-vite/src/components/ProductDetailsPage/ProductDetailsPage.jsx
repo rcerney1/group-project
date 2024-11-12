@@ -1,12 +1,13 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector} from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
 import'./ProductDetailsPage.css';
 import OpenModalButton from '../OpenModalButton'
 import CreateReviewModal from "../CreateReviewModal/CreateReviewModal.jsx";
 import DeleteReviewModal from "../DeleteReviewModal/DeleteReviewModal.jsx";
-import { fetchProductDetails } from "../../redux/products.js";
+import { fetchProductDetails, fetchProducts } from "../../redux/products.js";
 import { fetchProductReviews } from "../../redux/reviews.js";
+import { addCartItemThunk} from "../../redux/cart.js";
 
 
 function ProductDetailsPage() {
@@ -18,9 +19,11 @@ function ProductDetailsPage() {
     const currentUser = useSelector(state => state.session.user);
     console.log('CurrentUser', currentUser)
     console.log('ProductDetails', productDetails)
+    const navigate = useNavigate();
     useEffect(() => {
         dispatch(fetchProductDetails(productId))
         dispatch(fetchProductReviews(productId))
+        dispatch(fetchProducts());
     }, [dispatch, productId])
 
 
@@ -31,7 +34,9 @@ function ProductDetailsPage() {
     const isProductOwner = currentUser?.id === productDetails.Owner?.id;
 
     const handleAddtoCartClick = () => {
-        alert("Feature Coming Soon..."); 
+        // alert("Feature Coming Soon..."); 
+        dispatch(addCartItemThunk(productId))
+        .then(navigate('/cart'))
       };
     return (
         <div>
