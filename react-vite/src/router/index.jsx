@@ -8,6 +8,7 @@ import Products from '../components/Products/Products';
 import Favorites from '../components/Favorites/Favorites';
 import CartPage from '../components/Cart';
 import PurchasePage from '../components/PurchaseConfirm';
+import ManageProductsPage from '../components/ManageProductsPage/ManageProductsPage.jsx';
 
 
 
@@ -50,6 +51,10 @@ export const router = createBrowserRouter([
       {
         path: "/products/:productId/edit",
         element: <UpdateProductForm />,
+      },
+      {
+        path: "/products/manage",
+        element: <ManageProductsPage/>
       },
       {
         path: "*",

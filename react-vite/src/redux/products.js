@@ -5,6 +5,7 @@ const CREATE_PRODUCT = "products/createProduct";
 const UPDATE_PRODUCT = "products/updateProduct";
 const DELETE_PRODUCT = "products/deleteProduct";
 const LOAD_PRODUCT_DETAILS = 'products/loadProductDetails';
+const LOAD_USER_PRODUCTS = 'products/loadUserProducts'
 
 
 // Action Creators
@@ -38,6 +39,14 @@ const loadProductDetails = (product) => ({
     product
 })
 
+const loadUserProducts = (products) => ({
+    type: LOAD_USER_PRODUCTS,
+    products
+})
+
+
+// Thunks
+
 export const fetchProductDetails = (productId) => async (dispatch) => {
     const response = await fetch(`/api/products/${productId}`)
     if (response.ok) {
@@ -48,7 +57,7 @@ export const fetchProductDetails = (productId) => async (dispatch) => {
     }
 };
 
-// Thunks
+
 export const fetchProducts = () => async (dispatch) => {
     const response = await fetch("/api/products/");
     console.log("\nStep2\n")
@@ -118,10 +127,19 @@ export const deleteProductById = (id) => async (dispatch) => {
     }
 };
 
+export const fetchUserProducts = () => async (dispatch) => {
+    const response = await fetch('/api/products/current');
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(loadUserProducts(data.Products))
+    }
+}
+
 // Initial State
 const initialState = {
     allProducts: {},
     productDetails: null,
+    userProducts: {}
 };
 
 // Reducer
@@ -171,6 +189,13 @@ const productsReducer = (state = initialState, action) => {
             const newState = { ...state };
             delete newState.allProducts[action.productId];
             return newState;
+        }
+        case LOAD_USER_PRODUCTS: {
+            const newUserProducts = {};
+            action.products.forEach((product) => {
+                newUserProducts[product.id] = product;
+            });
+            return {...state, userProducts: newUserProducts}
         }
         default:
             return state;
