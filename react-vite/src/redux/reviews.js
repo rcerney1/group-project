@@ -1,7 +1,7 @@
 //Action Types
 const ADD_REVIEW = "reviews/addReview"
 const DELETE_REVIEW = "reviews/deleteReview"
-
+const LOAD_PRODUCT_REVIEWS ="reviews/LOAD_PRODUCT_REVIEWS"
 //Action Creators
 const addReview = (review) => ({
     type: ADD_REVIEW,
@@ -13,7 +13,22 @@ const deleteReview = (reviewId) => ({
     payload: reviewId,
 });
 
+const loadProductReviews = (reviews) => ({
+    type: LOAD_PRODUCT_REVIEWS,
+    reviews,
+})
+
 //Thunks
+
+//Thunk to Load All Reviews for a Product
+export const fetchProductReviews = (productId) => async (dispatch) => {
+    const response = await fetch(`/api/products/${productId}/reviews`)
+    if (response.ok) {
+        const data = await response.json();
+        console.log('DATA-------->', data)
+        dispatch(loadProductReviews(data.reviews))
+    }
+}
 
 //Thunk to create review
 export const thunkCreateReview = (productId, reviewData) => async (dispatch) => {
@@ -62,6 +77,8 @@ function reviewsReducer(state = initialState, action) {
             return {...state, reviews: [...state.reviews, action.payload]};
         case DELETE_REVIEW:
             return {...state, reviews: state.reviews.filter(review => review.id !== action.payload)}
+        case LOAD_PRODUCT_REVIEWS:
+            return { ...state, reviews: action.reviews };
         default:
             return state
     }

@@ -3,6 +3,7 @@ import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import ProductDetailsPage from '../components/ProductDetailsPage';
 import Layout from './Layout';
+import UpdateProductForm from '../components/UpdateProductForm/UpdateProductForm';
 import Products from '../components/Products/Products';
 import Favorites from '../components/Favorites/Favorites';
 import OpenModalButton from '../components/OpenModalButton/OpenModalButton.jsx'
@@ -10,6 +11,7 @@ import CreateReviewModal from '../components/CreateReviewModal/CreateReviewModal
 import DeleteReviewModal from '../components/DeleteReviewModal/DeleteReviewModal.jsx';
 import CartPage from '../components/Cart';
 import PurchasePage from '../components/PurchaseConfirm';
+
 
 
 export const router = createBrowserRouter([
@@ -45,8 +47,12 @@ export const router = createBrowserRouter([
         element: <Favorites />,  
       },
       {
-        path: "/products/:productid",
+        path: "/products/:productId",
         element: <ProductDetailsPage />,
+      },
+      {
+        path: "/products/:productId/edit",
+        element: <UpdateProductForm />,
       },
       {
         path: "*",
