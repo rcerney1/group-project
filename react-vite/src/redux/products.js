@@ -100,6 +100,8 @@ export const updateProductById = (id, productData) => async (dispatch) => {
         const updatedProduct = await response.json();
         dispatch(updateProduct(updatedProduct));
         return updatedProduct;
+    }else {
+        console.log('RESPONSE', response)
     }
 };
 

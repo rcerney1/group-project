@@ -41,7 +41,7 @@ const UpdateProductForm = () => {
   
       try {
         const result = await dispatch(updateProductById(productId, updatedProduct));
-  
+        console.log('RESULT', result)
         if (result.errors) {
           setErrors(result.errors); 
         } else {
