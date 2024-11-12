@@ -1,10 +1,14 @@
 import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
+import ProductDetailsPage from '../components/ProductDetailsPage';
 import Layout from './Layout';
+import Products from '../components/Products/Products';
+import Favorites from '../components/Favorites/Favorites';
 import OpenModalButton from '../components/OpenModalButton/OpenModalButton.jsx'
 import CreateReviewModal from '../components/CreateReviewModal/CreateReviewModal.jsx';
 import DeleteReviewModal from '../components/DeleteReviewModal/DeleteReviewModal.jsx';
+
 
 
 export const router = createBrowserRouter([
@@ -24,21 +28,21 @@ export const router = createBrowserRouter([
         element: <SignupFormPage />,
       },
       {
-        path: "/test-review",
-        element: (
-            <div>
-                <h1>Test the Review Modal</h1>
-                <OpenModalButton
-                    modalComponent={<CreateReviewModal productId={1} />}
-                    buttonText="Open Review Modal"
-                />
-                <OpenModalButton
-                  modalComponent={<DeleteReviewModal reviewId={4}/>} 
-                  buttonText="delete"
-                />
-            </div>
-        ),
-      }
+        path: "products",  
+        element: <Products />,  
+      },
+      {
+        path: "favorites",  
+        element: <Favorites />,  
+      },
+      {
+        path: "/products/:productid",
+        element: <ProductDetailsPage />,
+      },
+      {
+        path: "*",
+        element: <h1>Page Does Not Exist</h1>,
+      },
     ],
   },
 ]);

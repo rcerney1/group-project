@@ -8,6 +8,8 @@ product_routes = Blueprint('products', __name__)
 #Get all Products
 @product_routes.route('/', methods=['GET'])
 def get_all_products():
+
+    print("\nStep3\n")
     """
     Fetch all products with their avgRating and previewImage
     """
