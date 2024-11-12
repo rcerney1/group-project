@@ -4,10 +4,8 @@ import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import OpenModalButton from '../components/OpenModalButton/OpenModalButton.jsx'
 import CreateReviewModal from '../components/CreateReviewModal/CreateReviewModal.jsx';
+import DeleteReviewModal from '../components/DeleteReviewModal/DeleteReviewModal.jsx';
 
-// //! dummy for testing
-// const user = { id: 1, name: "Test User" }; 
-// //!
 
 export const router = createBrowserRouter([
   {
@@ -25,18 +23,22 @@ export const router = createBrowserRouter([
         path: "signup",
         element: <SignupFormPage />,
       },
-      // {
-      //   path: "/test-review",
-      //   element: (
-      //       <div>
-      //           <h1>Test the Review Modal</h1>
-      //           <OpenModalButton
-      //               modalComponent={<CreateReviewModal productId={1} user={user} />}
-      //               buttonText="Open Review Modal"
-      //           />
-      //       </div>
-      //   ),
-      // }
+      {
+        path: "/test-review",
+        element: (
+            <div>
+                <h1>Test the Review Modal</h1>
+                <OpenModalButton
+                    modalComponent={<CreateReviewModal productId={1} />}
+                    buttonText="Open Review Modal"
+                />
+                <OpenModalButton
+                  modalComponent={<DeleteReviewModal reviewId={4}/>} 
+                  buttonText="delete"
+                />
+            </div>
+        ),
+      }
     ],
   },
 ]);
