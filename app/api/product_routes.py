@@ -37,7 +37,7 @@ def get_product_details(product_id):
     return jsonify(product.to_dict(include_details=True, include_all_details=True)), 200
 
 #Create Product
-@product_routes.route('/', methods=['POST'])
+@product_routes.route('', methods=['POST'])
 @login_required
 def create_product():
     print(request)
@@ -48,7 +48,10 @@ def create_product():
         errors['name'] = "Name must be less than 50 characters"
     if not data.get('description'):
         errors['description'] = "Description is required"
-    if not isinstance(data.get('price'), (int, float)) or data['price'] <= 0:
+    
+    price = float(data['price'])
+   
+    if price <= 0:
         errors['price'] = "Price must be a positive number"
 
     if errors:
@@ -79,13 +82,17 @@ def edit_product(product_id):
         return jsonify({"message": "Unauthorized"}), 403
     
     data = request.get_json()
+    print('DATA', data)
 
     errors= {}
     if not data.get('name') or len(data['name']) > 50:
         errors['name'] = "Name must be less than 50 characters"
     if not data.get('description'):
         errors['description'] = "Description is required"
-    if not isinstance(data.get('price'), (int, float)) or data['price'] <= 0:
+   
+    price = float(data['price'])
+   
+    if price <= 0:
         errors['price'] = "Price must be a positive number"
 
     if errors:

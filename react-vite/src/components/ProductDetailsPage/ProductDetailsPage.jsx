@@ -119,7 +119,7 @@ function ProductDetailsPage() {
                             </div>
                         </div>
                         <div>{review.review}</div>
-                            {currentUser?.id === review.userId && (
+                            {currentUser?.id === review.user_id && (
                             <OpenModalButton
                                 buttonText="Delete"
                                 modalComponent={<DeleteReviewModal reviewId={review.id} productId={productId} />}
