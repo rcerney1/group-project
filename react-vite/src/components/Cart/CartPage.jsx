@@ -13,11 +13,8 @@ function CartPage() {
 
   const cartArr = cartObj ? Object.values(cartObj) : [];
 
-  const user = useSelector((state) => state.session.user.username)
-
 
   useEffect(() => {
-    // Load the cart when the component mounts
     dispatch(getCartThunk());
 }, [dispatch]);
 
@@ -32,8 +29,7 @@ function CartPage() {
         </div>
 
         <div>
-            <h1>cart item show here!</h1>
-            <p>{user}</p>
+            <h1>cart item will show here 🥳</h1>
         </div>
 
       </main>

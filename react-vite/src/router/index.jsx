@@ -3,6 +3,8 @@ import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import CartPage from '../components/Cart';
+import PurchasePage from '../components/PurchaseConfirm';
+
 // import OpenModalButton from '../components/OpenModalButton/OpenModalButton.jsx'  
 // import CreateReviewModal from '../components/CreateReviewModal/CreateReviewModal.jsx';
 
@@ -41,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path:"cart",
         element:<CartPage />
+      },
+      {
+        path:"checkout",
+        element:<PurchasePage />
       }
     ],
   },
