@@ -30,6 +30,7 @@ function CreateReviewModal({ productId }) {
 
         const result = await dispatch(thunkCreateReview(productId, reviewData));
         if (result.errors) {
+            console.log(result.errors)
             setServerError(result.errors)
         } else {
             closeModal();
@@ -38,7 +39,6 @@ function CreateReviewModal({ productId }) {
 
     const isSubmitDisabled = review.length < 10 || stars === 0;
 
-
     return (
         <div className="review-modal-container">
             <h2>Share Your Thoughts</h2>
@@ -46,7 +46,7 @@ function CreateReviewModal({ productId }) {
                 {serverError && (
                     <div className='error-messages'>
                         {serverError.map((error, index) => (
-                            <p key={index} className='error'>{error}</p>
+                            <p key={index} className="error">{error}</p>
                         ))}
                     </div>
                 )}
