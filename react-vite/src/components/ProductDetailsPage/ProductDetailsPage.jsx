@@ -5,7 +5,7 @@ import'./ProductDetailsPage.css';
 import OpenModalButton from '../OpenModalButton'
 import CreateReviewModal from "../CreateReviewModal/CreateReviewModal.jsx";
 import DeleteReviewModal from "../DeleteReviewModal/DeleteReviewModal.jsx";
-import { fetchProductDetails } from "../../redux/product";
+import { fetchProductDetails } from "../../redux/products.js";
 import { fetchProductReviews } from "../../redux/reviews.js";
 
 
@@ -27,6 +27,7 @@ function ProductDetailsPage() {
     if (!productDetails) return <div>Loading...</div>;
 
     const userHasPostedReview = reviews.some((review) => review.user_id === currentUser?.id);
+    console.log("user has posted a review", userHasPostedReview)
     const isProductOwner = currentUser?.id === productDetails.Owner?.id;
 
     const handleAddtoCartClick = () => {
@@ -98,7 +99,7 @@ function ProductDetailsPage() {
                     {currentUser && !userHasPostedReview && !isProductOwner && (
                         <OpenModalButton
                             buttonText="Post Your Review"
-                            modalComponent={<CreateReviewModal productId={productid} />}
+                            modalComponent={<CreateReviewModal productId={productId} />}
                             onModalClose={() => {}}
                         />
                     )}

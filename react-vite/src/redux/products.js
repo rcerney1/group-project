@@ -4,6 +4,8 @@ const LOAD_PRODUCT = "products/loadProduct";
 const CREATE_PRODUCT = "products/createProduct";
 const UPDATE_PRODUCT = "products/updateProduct";
 const DELETE_PRODUCT = "products/deleteProduct";
+const LOAD_PRODUCT_DETAILS = 'products/loadProductDetails';
+
 
 // Action Creators
 const loadProducts = (products) => ({
@@ -30,6 +32,21 @@ const deleteProduct = (productId) => ({
     type: DELETE_PRODUCT,
     productId
 });
+
+const loadProductDetails = (product) => ({
+    type: LOAD_PRODUCT_DETAILS,
+    product
+})
+
+export const fetchProductDetails = (productId) => async (dispatch) => {
+    const response = await fetch(`/api/products/${productId}`)
+    if (response.ok) {
+        const product = await response.json();
+        dispatch(loadProductDetails(product));
+    }else {
+        console.error("Failed to fetch product details");
+    }
+};
 
 // Thunks
 export const fetchProducts = () => async (dispatch) => {
@@ -93,12 +110,16 @@ export const deleteProductById = (id) => async (dispatch) => {
 
     if (response.ok) {
         dispatch(deleteProduct(id));
+    }else {
+        const errorData = await response.json();
+        return { errors : errorData.errors };
     }
 };
 
 // Initial State
 const initialState = {
     allProducts: {},
+    productDetails: null,
 };
 
 // Reducer
@@ -111,6 +132,12 @@ const productsReducer = (state = initialState, action) => {
             });
             return newState;
         }
+        case LOAD_PRODUCT_DETAILS:
+            
+            return {
+                ...state,
+                productDetails: action.product,
+            };
         case LOAD_PRODUCT: {
             return {
                 ...state,

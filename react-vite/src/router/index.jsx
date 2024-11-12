@@ -6,9 +6,6 @@ import Layout from './Layout';
 import UpdateProductForm from '../components/UpdateProductForm/UpdateProductForm';
 import Products from '../components/Products/Products';
 import Favorites from '../components/Favorites/Favorites';
-import OpenModalButton from '../components/OpenModalButton/OpenModalButton.jsx'
-import CreateReviewModal from '../components/CreateReviewModal/CreateReviewModal.jsx';
-import DeleteReviewModal from '../components/DeleteReviewModal/DeleteReviewModal.jsx';
 import CartPage from '../components/Cart';
 import PurchasePage from '../components/PurchaseConfirm';
 
