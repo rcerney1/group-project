@@ -2,8 +2,9 @@ import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
-import OpenModalButton from '../components/OpenModalButton/OpenModalButton.jsx'
-import CreateReviewModal from '../components/CreateReviewModal/CreateReviewModal.jsx';
+import CartPage from '../components/Cart';
+// import OpenModalButton from '../components/OpenModalButton/OpenModalButton.jsx'  
+// import CreateReviewModal from '../components/CreateReviewModal/CreateReviewModal.jsx';
 
 // //! dummy for testing
 // const user = { id: 1, name: "Test User" }; 
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
       //       </div>
       //   ),
       // }
+      {
+        path:"cart",
+        element:<CartPage />
+      }
     ],
   },
 ]);
