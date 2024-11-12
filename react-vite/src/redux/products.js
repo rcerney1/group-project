@@ -6,6 +6,9 @@ const UPDATE_PRODUCT = "products/updateProduct";
 const DELETE_PRODUCT = "products/deleteProduct";
 const LOAD_PRODUCT_DETAILS = "products/loadProductDetails";
 const ADD_PRODUCT_IMAGE = "products/addProductImage";
+const UPDATE_PRODUCT_IMAGE = "products/updateProductImage"
+
+
 
 // Action Creators
 const loadProducts = (products) => ({
@@ -42,6 +45,11 @@ const addProductImage = (image) => ({
     type: ADD_PRODUCT_IMAGE,
     image,
 });
+
+const updateProductImage = (image) => ({
+    type: UPDATE_PRODUCT_IMAGE,
+    image,
+})
 
 export const fetchProductDetails = (productId) => async (dispatch) => {
     const response = await fetch(`/api/products/${productId}`)
@@ -145,6 +153,25 @@ export const addProductImageThunk = (productId, imageData) => async (dispatch) =
     }
 }
 
+export const updateProductImageThunk = (productId, imageId, imageData) => async (dispatch) => {
+    const response = await fetch(`/api/products/${productId}/images/${imageId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(imageData),
+    });
+
+    if (response.ok) {
+        const updatedImage = await response.json();
+        dispatch(updateProductImage(updatedImage));
+        return updatedImage;
+    } else {
+        const errorData = await response.json();
+        return { errors: errorData.errors };
+    }
+};
+
 // Initial State
 const initialState = {
     allProducts: {},
@@ -208,6 +235,17 @@ const productsReducer = (state = initialState, action) => {
                         ...(state.productDetails?.ProductImages || []),
                         action.image,
                     ],
+                },
+            };
+        }
+        case UPDATE_PRODUCT_IMAGE: {
+            return {
+                ...state,
+                productDetails: {
+                    ...state.productDetails,
+                    ProductImages: state.productDetails.ProductImages.map((image) =>
+                        image.id === action.image.id ? action.image : image
+                    ),
                 },
             };
         }
