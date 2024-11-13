@@ -44,10 +44,12 @@ function ProductDetailsPage() {
       };
 
     return (
-        <div>
-            <h2>{productDetails.name}</h2> 
-            <div>
-                <img
+        <div className="product-detail-content-container">
+        <div className="product-detail-page-whole">
+        <div className="product-detail-upper">
+        <div className="product-detail-imgs">
+            <div className="product-detail-img-wrapper">
+                <img className="product-detail-preview-img"
                     src={productDetails.ProductImages[0]?.url} 
                     alt={productDetails.name} 
                 />
@@ -63,16 +65,23 @@ function ProductDetailsPage() {
                     ))}
                 </div>
             </div>
-            <div>
-                <div>
-                    <div>
-                        Sold by {productDetails.Owner.firstName} {productDetails.Owner.lastName}
-                    </div>
+        </div>    
+            <div className="product-detail-info">
+                    <h3>{productDetails.name}</h3> 
+                    <div>Sold by {productDetails.Owner.firstName} {productDetails.Owner.lastName}</div>
+                    <div>${productDetails.price}</div>
+                    <div><button onClick={handleAddtoCartClick}>Add to Cart</button></div>
                     <div>{productDetails.description}</div>
-                </div>
+            </div>
+        </div>   
+            <div>
+
+                <h3>Ratings and Reviews</h3>
+                
                 <div>
+
                     <div>
-                        <div>${productDetails.price}</div>
+                        
                         <div>
                             <div>
                                 <span>★</span> 
@@ -85,10 +94,11 @@ function ProductDetailsPage() {
                                 )}
                             </div>
                         </div>
-                        <button onClick={handleAddtoCartClick}>Add to Cart</button>
+                        
                     </div>
                 </div>
             </div>
+
             <hr/>
     
             <div>
@@ -136,6 +146,7 @@ function ProductDetailsPage() {
                                 
                             />
                         )}
+                        <hr />
                     </div>
                  ))
         ) : ( 
@@ -143,6 +154,7 @@ function ProductDetailsPage() {
          )}
                 </div>
             </div>
+        </div>
         </div>
     );
     }
