@@ -63,7 +63,7 @@ const Products = () => {
                                 src={product?.previewImage || '/default-image.jpg'}
                                 alt={product?.name}
                                 className="product-image"
-                            />
+                            />                            
                         </NavLink>
                     </div>
                     <div className="product-info">

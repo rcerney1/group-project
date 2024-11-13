@@ -60,7 +60,7 @@ def delete_favorite(product_id):
 
 
 #---------------------------------------------------------------------------
-    {
-      "email": "demo@aa.io",
-      "password": "password"
-    }
+    # {
+    #   "email": "demo@aa.io",
+    #   "password": "password"
+    # }
