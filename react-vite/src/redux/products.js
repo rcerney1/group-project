@@ -1,3 +1,5 @@
+import { fetchProductReviews } from "./reviews";
+
 // Action Types
 const LOAD_PRODUCTS = "products/loadProducts";
 const LOAD_PRODUCT = "products/loadProduct";
@@ -70,6 +72,7 @@ export const fetchProductDetails = (productId) => async (dispatch) => {
     if (response.ok) {
         const product = await response.json();
         dispatch(loadProductDetails(product));
+        // dispatch(fetchProductReviews(productId))
     }else {
         console.error("Failed to fetch product details");
     }
@@ -78,7 +81,7 @@ export const fetchProductDetails = (productId) => async (dispatch) => {
 
 export const fetchProducts = () => async (dispatch) => {
     const response = await fetch("/api/products/");
-    console.log("\nStep2\n")
+    
     if (response.ok) {
         const data = await response.json();
 

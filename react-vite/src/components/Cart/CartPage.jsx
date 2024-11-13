@@ -74,7 +74,9 @@ function CartPage() {
 
       {cartProducts.map((product) => (
         <div key={product.id} className="cart-item">
-          <h3>{product.name}</h3>
+          <Link to={`/products/${product.id}`}>
+              <h3>{product.name}</h3>
+          </Link>
           <img src={product.previewImage} alt={product.name}  className="cart-item-img" />
           <p>Price: ${product.price}</p>
           <p>
@@ -92,7 +94,7 @@ function CartPage() {
               ))}
             </select>
           </p>
-          <button onClick={() => handleRemoveItem(product.item_id)}>
+          <button className="cart-item-remove" onClick={() => handleRemoveItem(product.item_id)}>
             Remove
           </button>
         </div>
@@ -100,8 +102,8 @@ function CartPage() {
 
       <div className="cart-footer">
         <h2>Total: ${calculateTotal()}</h2>
-        <button onClick={() => navigate("/")}>Continue Shopping</button>
-        <button onClick={handleCheckout}>Checkout</button>
+        <button className="continue-button" onClick={() => navigate("/")}>Continue Shopping</button>
+        <button className="checkout-button" onClick={handleCheckout}>Checkout</button>
       </div>
 
     </main>

@@ -1,13 +1,4 @@
-.cart-item-img {
-    height: 120px;
-    width: 120px;
-}
-
-
-
-  
-  
-/* Empty cart styles */
+/* ============Empty cart styles============= */
   
   .cart-page-empty {
     padding: 200px;
@@ -27,3 +18,130 @@
     font-weight: bold;
     transition: all 0.2s ease;
   }
+
+/* ============Main styles============= */
+
+
+.cart-page-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px;
+}
+
+.cart-page-container h1 {
+  padding-bottom: 10px;
+  border-bottom: 2px solid #C96868;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  margin-bottom: 10px;
+  gap: 2rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #A6AEBF;
+}
+
+.cart-item h3 {
+  font-size: 1.2rem;
+  width: 250px;
+  color: black;
+}
+
+.cart-item-img {
+  width: 100px;
+  height: 140px;
+  object-fit:cover;
+}
+
+.cart-item p {
+  font-weight: bold;
+  min-width: 120px;
+}
+
+.cart-item select {
+  margin: 5px;
+}
+
+.cart-item-remove{
+  margin-left: auto;
+  padding: 0.5rem 1rem;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.cart-item-remove:hover {
+  background-color: #c0392b;
+}
+
+.cart-footer {
+  margin-top: 15px;
+  padding: 20px;
+  background-color: #FFF1CC; ;
+  border-radius: 8px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.cart-footer button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.continue-button{
+  background-color: black;
+  color: white;
+  margin-left: auto;
+}
+
+.checkout-button {
+  background-color: #27ae60;
+  color: white;
+}
+
+.continue-button:hover {
+  background-color: rgb(88, 83, 83);
+}
+
+.checkout-button:hover {
+  background-color: #14753b;
+}
+
+
+
+/* ============Responsive Design============== */
+@media (max-width: 768px) {
+  .cart-item {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .cart-item h3 {
+    width: 100%;
+  }
+
+  .cart-item button {
+    margin: 0;
+  }
+
+  .cart-footer {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .cart-footer button {
+    width: 100%;
+  }
+}

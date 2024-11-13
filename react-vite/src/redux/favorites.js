@@ -32,10 +32,10 @@ export const fetchFavorites = () => async (dispatch) => {
 
 
 // Thunk to Add Favorite
-export const addFavorite = (productId) => async (dispatch) => {
-    const response = await fetch(`/api/favorites/${productId}`, { method: "POST" });
+export const addFavorite = (product) => async (dispatch) => {
+    const response = await fetch(`/api/favorites/${product.id}`, { method: "POST" });
     if (response.ok) {
-        dispatch(addFavoriteAction(productId));
+        dispatch(addFavoriteAction(product));        
     } else {
         console.error("Failed to add favorite to database");
     }
@@ -45,7 +45,7 @@ export const addFavorite = (productId) => async (dispatch) => {
 // Thunk to Remove Favorite
 export const deleteFavorite = (productId) => async (dispatch) => {
     // Optimistically remove the favorite from the UI immediately
-    dispatch(removeFavorite(productId));
+    dispatch(removeFavorite(productId));    
 
     // API call to delete the favorite from the database
     const response = await fetch(`/api/favorites/${productId}`, { method: "DELETE" });
@@ -73,7 +73,9 @@ const favoritesReducer = (state = initialState, action) => {
         case ADD_FAVORITE:
             return {
                 ...state,
-                favoriteIds: [...state.favoriteIds, action.productId],
+                favoriteIds: state.favoriteIds.includes(action.productId)
+                    ? state.favoriteIds // Do nothing if already in favorites
+                    : [...state.favoriteIds, action.productId],
             };
         case REMOVE_FAVORITE:
             return {
