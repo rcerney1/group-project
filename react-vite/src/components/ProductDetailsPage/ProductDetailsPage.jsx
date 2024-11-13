@@ -38,7 +38,9 @@ function ProductDetailsPage() {
     const isProductOwner = currentUser?.id === productDetails.Owner?.id;
 
     const handleAddtoCartClick = () => {
-        // alert("Feature Coming Soon..."); 
+        if(!currentUser){
+            return alert("Please Log In..."); 
+         }
         dispatch(addCartItemThunk(productId))
         .then(navigate('/cart'))
       };
