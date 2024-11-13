@@ -12,6 +12,9 @@ const Favorites = () => {
         dispatch(fetchFavorites()); // Fetch all favorites initially
     }, [dispatch]);
 
+    const handleAddFavorite = (productId) => {
+        dispatch(addFavorite(productId)); // Add to favorites
+    };
 
     const handleRemoveFavorite = (productId) => {
         dispatch(deleteFavorite(productId)); //  Remove from favorites
@@ -30,18 +33,6 @@ const Favorites = () => {
                                         alt={favorite.product?.name}
                                         className="product-image" 
                                     />
-        <div className="products-container">
-            {favorites.length > 0 ? (
-                favorites.map((favorite) => (
-                    <div key={favorite.product?.id} className="product-tile">
-                        <NavLink to={`/products/${favorite.product?.id}`}>
-                            <div className="image-container">
-                                <img
-                                    src={favorite.product?.previewImage || '/default-image.jpg'}
-                                    alt={favorite.product?.name}
-                                    className="product-image" 
-                                />
-                                <div className="favorite-icon-container">
                                     <FaHeart
                                         className="favorite-icon favorited"
                                         onClick={(e) => {
@@ -49,15 +40,6 @@ const Favorites = () => {
                                             handleRemoveFavorite(favorite.product?.id);
                                         }}
                                     />
-                                </div>
-                            </div>
-                            <div className="product-details">
-                                <div className="product-details-wrapper">
-                                    <h3>{favorite.product?.name}</h3>
-                                    <span className="product-rating">
-                                        {favorite.product?.avgRating?.toFixed(1)} <FaStar className="single-star" />
-                                    </span>
-
                                 </div>
                                 <div className="product-details">
                                     <div className="product-details-wrapper">
@@ -83,3 +65,5 @@ export default Favorites;
 
 
 
+// #----------------------------------------
+// http://localhost:5173/
