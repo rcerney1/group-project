@@ -100,7 +100,7 @@ function CartPage() {
 
       <div className="cart-footer">
         <h2>Total: ${calculateTotal()}</h2>
-        <button onClick={() => navigate("/products")}>Continue Shopping</button>
+        <button onClick={() => navigate("/")}>Continue Shopping</button>
         <button onClick={handleCheckout}>Checkout</button>
       </div>
 
