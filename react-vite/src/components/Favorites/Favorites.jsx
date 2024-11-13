@@ -12,9 +12,6 @@ const Favorites = () => {
         dispatch(fetchFavorites()); // Fetch all favorites initially
     }, [dispatch]);
 
-    const handleAddFavorite = (productId) => {
-        dispatch(addFavorite(productId)); // Add to favorites
-    };
 
     const handleRemoveFavorite = (productId) => {
         dispatch(deleteFavorite(productId)); //  Remove from favorites
@@ -32,13 +29,15 @@ const Favorites = () => {
                                     alt={favorite.product?.name}
                                     className="product-image" 
                                 />
-                                <FaHeart
-                                    className="favorite-icon favorited"
-                                    onClick={(e) => {
-                                        e.preventDefault(); // Prevent navigation on click
-                                        handleRemoveFavorite(favorite.product?.id);
-                                    }}
-                                />
+                                <div className="favorite-icon-container">
+                                    <FaHeart
+                                        className="favorite-icon favorited"
+                                        onClick={(e) => {
+                                            e.preventDefault(); // Prevent navigation on click
+                                            handleRemoveFavorite(favorite.product?.id);
+                                        }}
+                                    />
+                                </div>
                             </div>
                             <div className="product-details">
                                 <div className="product-details-wrapper">
@@ -63,5 +62,3 @@ export default Favorites;
 
 
 
-// #----------------------------------------
-// http://localhost:5173/
