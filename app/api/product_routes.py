@@ -134,6 +134,30 @@ def add_product_image(product_id):
 
     return jsonify(new_image.to_dict()), 201
 
+#Update a Product Image
+@product_routes.route('/<int:product_id>/images/<int:product_image_id>', methods=['PUT'])
+@login_required
+def update_product_image(product_id, product_image_id):
+    product = Product.query.get(product_id)
+    if not product:
+        return jsonify({"message": "Product not found"}), 404
+
+    
+    image = ProductImage.query.filter_by(id=product_image_id, product_id=product_id).first()
+    if not image:
+        return jsonify({"message": "Image not found"}), 404
+
+    data = request.get_json()
+    if not data.get('url'):
+        return jsonify({"message": "Bad Request", "errors": {"url": "URL is required"}}), 400
+
+    image.url = data['url']
+    image.preview = data.get('preview', image.preview)  
+
+    db.session.commit()
+
+    return jsonify(image.to_dict()), 200
+
 #Delete a Product Image
 @product_routes.route('/images/<int:product_image_id>', methods=['DELETE'])
 @login_required

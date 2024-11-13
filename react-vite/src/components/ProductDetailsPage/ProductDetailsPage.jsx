@@ -7,7 +7,7 @@ import CreateReviewModal from "../CreateReviewModal/CreateReviewModal.jsx";
 import DeleteReviewModal from "../DeleteReviewModal/DeleteReviewModal.jsx";
 import { fetchProductDetails } from "../../redux/products.js";
 import { fetchProductReviews } from "../../redux/reviews.js";
-
+import { clearProductDetails } from "../../redux/products.js";
 
 function ProductDetailsPage() {
     const dispatch = useDispatch();
@@ -18,21 +18,25 @@ function ProductDetailsPage() {
     const currentUser = useSelector(state => state.session.user);
     console.log('CurrentUser', currentUser)
     console.log('ProductDetails', productDetails)
+
     useEffect(() => {
         dispatch(fetchProductDetails(productId))
         dispatch(fetchProductReviews(productId))
+        return () => {
+            dispatch(clearProductDetails())
+        }
     }, [dispatch, productId])
 
 
     if (!productDetails) return <div>Loading...</div>;
 
     const userHasPostedReview = reviews.some((review) => review.user_id === currentUser?.id);
-    console.log("user has posted a review", userHasPostedReview)
     const isProductOwner = currentUser?.id === productDetails.Owner?.id;
 
     const handleAddtoCartClick = () => {
         alert("Feature Coming Soon..."); 
       };
+
     return (
         <div>
             <h2>{productDetails.name}</h2> 
