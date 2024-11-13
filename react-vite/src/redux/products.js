@@ -6,7 +6,6 @@ const UPDATE_PRODUCT = "products/updateProduct";
 const DELETE_PRODUCT = "products/deleteProduct";
 const LOAD_PRODUCT_DETAILS = 'products/loadProductDetails';
 const LOAD_USER_PRODUCTS = 'products/loadUserProducts'
-const LOAD_PRODUCT_DETAILS = "products/loadProductDetails";
 const ADD_PRODUCT_IMAGE = "products/addProductImage";
 const UPDATE_PRODUCT_IMAGE = "products/updateProductImage"
 const CLEAR_PRODUCT_DETAILS = "producst/clearProductDetails"
@@ -259,6 +258,7 @@ const productsReducer = (state = initialState, action) => {
                 newUserProducts[product.id] = product;
             });
             return {...state, userProducts: newUserProducts}
+        }    
         case ADD_PRODUCT_IMAGE: {
             return {
                 ...state,

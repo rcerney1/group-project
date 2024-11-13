@@ -28,10 +28,8 @@ class Review(db.Model):
             'stars': self.stars,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
-        }
             'user': {
                 'first_name': self.user.first_name,
                 'last_name': self.user.last_name
             }
         }
-
