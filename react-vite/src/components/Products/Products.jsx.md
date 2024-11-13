@@ -29,14 +29,10 @@ const Products = () => {
             await dispatch(deleteFavorite(productId)); // Remove from favorites if already favorited                       
         } else {           
             await dispatch(addFavorite(productId));
-            // await dispatch(fetchFavorites());
+            await dispatch(fetchFavorites());
            
         }
     };
-
-    useEffect(() => {
-        dispatch(fetchFavorites()); // Fetch favorites on initial mount and when `favoriteIds` changes
-    }, [dispatch, favoriteIds.length]);
 
    
     useEffect(() => {
@@ -62,7 +58,6 @@ const Products = () => {
 
     return (
         <div className="products-container">
-            
             {products.map((product) => {
                 const isFavorited = favoriteProductIds.includes(product.id)               
                 return (
@@ -101,7 +96,7 @@ const Products = () => {
                             </NavLink>
                             <div className="product-details">
                                 <span className="product-rating">
-                                    {product.avgRating ? product?.avgRating.toFixed(1) : 'New'} <FaStar className="single-star" />
+                                    {product?.avgRating.toFixed(1)} <FaStar className="single-star" />
                                 </span>
                                 <div className="product-price">${product?.price}</div>
                             </div>

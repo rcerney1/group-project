@@ -54,7 +54,7 @@ function ProfileButton() {
               <li className="profile-username">{user.username}</li>
               <li className="profile-email">{user.email}</li>
               <li>
-                <Link to="/products/current">Mange Products</Link>
+                <Link to="/products/manage">Manage Products</Link>
               </li>
               <li>
                 <Link to="/products/new">Create New</Link>
