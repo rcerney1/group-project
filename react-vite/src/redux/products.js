@@ -1,4 +1,3 @@
-import { fetchProductReviews } from "./reviews";
 
 // Action Types
 const LOAD_PRODUCTS = "products/loadProducts";
@@ -72,7 +71,6 @@ export const fetchProductDetails = (productId) => async (dispatch) => {
     if (response.ok) {
         const product = await response.json();
         dispatch(loadProductDetails(product));
-        // dispatch(fetchProductReviews(productId))
     }else {
         console.error("Failed to fetch product details");
     }
@@ -84,9 +82,6 @@ export const fetchProducts = () => async (dispatch) => {
     
     if (response.ok) {
         const data = await response.json();
-
-        console.log(`\nFetched data: ${JSON.stringify(data)}\n`);
-
         dispatch(loadProducts(data.Products));
     } else {
         console.error("Failed to fetch products");
@@ -134,7 +129,7 @@ export const updateProductById = (id, productData) => async (dispatch) => {
         dispatch(updateProduct(updatedProduct));
         return updatedProduct;
     }else {
-        console.log('RESPONSE', response)
+        console.error('RESPONSE', response)
     }
 };
 

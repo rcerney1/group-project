@@ -8,9 +8,7 @@ const UpdateProductForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { productId } = useParams();
-    console.log("Product ID from URL:", productId);
     const productDetails = useSelector((state) => state.products.productDetails);
-    console.log("Product Details in Redux:", productDetails);
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
@@ -33,7 +31,6 @@ const UpdateProductForm = () => {
           }
       }
   }, [productDetails]);
-  console.log('IMAGEID', imageId)
     const handleSubmit = async (e) => {
       e.preventDefault();
 

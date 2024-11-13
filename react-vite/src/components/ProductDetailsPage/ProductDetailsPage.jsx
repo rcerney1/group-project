@@ -16,10 +16,7 @@ function ProductDetailsPage() {
     const { productId } = useParams();
     const productDetails = useSelector(state => state.products.productDetails);
     const reviews = useSelector(state => state.reviews.reviews);
-    console.log('REVIEWS', reviews)
     const currentUser = useSelector(state => state.session.user);
-    console.log('CurrentUser', currentUser)
-    console.log('ProductDetails', productDetails)
     const navigate = useNavigate();
        
     useEffect(() => {
