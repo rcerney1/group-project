@@ -24,8 +24,9 @@
 }
 
 .product-detail-preview-img {
-   width: 100%;
-   height: auto;
+
+   width: 250px;
+   height: 300px;
    object-fit: cover;
    border-radius: 5px;
 }
@@ -38,7 +39,7 @@
 
 hr {
     border: none;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #302d2d;
     margin: 10px 0;
 }
 
@@ -92,3 +93,16 @@ hr {
         font-size: 12px;
     }
 }
+
+/* @media (max-width:2000px) {
+    .product-detail-page-whole {
+        width: auto;
+        margin: 0;
+    }
+    
+    .product-detail-preview-img {
+        height: 100%;
+        width: 100%;
+        aspect-ratio: 2 / 3;
+    }
+}  */

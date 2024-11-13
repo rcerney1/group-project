@@ -11,3 +11,8 @@ button {
 *{
     font-family: 'Bangers', sans-serif;
 }
+
+body {
+    background-color: #FAF0E6;
+    margin: 0;
+}
