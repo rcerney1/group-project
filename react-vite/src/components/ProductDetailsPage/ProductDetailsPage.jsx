@@ -8,6 +8,7 @@ import DeleteReviewModal from "../DeleteReviewModal/DeleteReviewModal.jsx";
 import { fetchProductDetails, fetchProducts } from "../../redux/products.js";
 import { fetchProductReviews } from "../../redux/reviews.js";
 import { addCartItemThunk} from "../../redux/cart.js";
+import { clearProductDetails } from "../../redux/products.js";
 
 
 function ProductDetailsPage() {
@@ -20,17 +21,20 @@ function ProductDetailsPage() {
     console.log('CurrentUser', currentUser)
     console.log('ProductDetails', productDetails)
     const navigate = useNavigate();
+       
     useEffect(() => {
         dispatch(fetchProductDetails(productId))
         dispatch(fetchProductReviews(productId))
         dispatch(fetchProducts());
+        return () => {
+            dispatch(clearProductDetails())
+        }
     }, [dispatch, productId])
 
 
     if (!productDetails) return <div>Loading...</div>;
 
     const userHasPostedReview = reviews.some((review) => review.user_id === currentUser?.id);
-    console.log("user has posted a review", userHasPostedReview)
     const isProductOwner = currentUser?.id === productDetails.Owner?.id;
 
     const handleAddtoCartClick = () => {
@@ -38,6 +42,7 @@ function ProductDetailsPage() {
         dispatch(addCartItemThunk(productId))
         .then(navigate('/cart'))
       };
+
     return (
         <div>
             <h2>{productDetails.name}</h2> 
@@ -124,7 +129,7 @@ function ProductDetailsPage() {
                             </div>
                         </div>
                         <div>{review.review}</div>
-                            {currentUser?.id === review.userId && (
+                            {currentUser?.id === review.user_id && (
                             <OpenModalButton
                                 buttonText="Delete"
                                 modalComponent={<DeleteReviewModal reviewId={review.id} productId={productId} />}

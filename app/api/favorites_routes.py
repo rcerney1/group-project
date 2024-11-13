@@ -9,18 +9,18 @@ favorites_routes = Blueprint('favorites', __name__)
 @favorites_routes.route('/', methods=['GET'])
 @login_required
 def get_all_favorites():
-    print("\n Route reached!\n")
+   
     favorites = Favorite.query.filter_by(user_id=current_user.id).all()
 
     if not favorites:
-        print("\nNo favorites found for the current user.\n")
+       
         return jsonify([]), 200
 
     
     # Convert each favorite to a dictionary, including product details
     favorites_list = [favorite.to_dict(include_product=True) for favorite in favorites]
 
-    print("\n favorites_list:  \n", favorites_list, "\n")
+ 
     return jsonify(favorites_list), 200
 
 
@@ -46,22 +46,21 @@ def add_favorite(product_id):
 
 
 
-@favorites_routes.route('/<int:favorite_id>', methods=['DELETE'])
+@favorites_routes.route('/<int:product_id>', methods=['DELETE'])
 @login_required
-def delete_favorite(favorite_id):
-    """Delete a favorite by ID for the current user."""
-    favorite = Favorite.query.filter_by(id=favorite_id, user_id=current_user.id).first()
-    if not favorite:
-        return jsonify({"error": "Favorite not found"}), 404
-
-    db.session.delete(favorite)
-    db.session.commit()
-    return jsonify({"message": "Favorite deleted"}), 200
+def delete_favorite(product_id):
+    # Identify the Favorite entry by user_id and product_id
+    favorite = Favorite.query.filter_by(user_id=current_user.id, product_id=product_id).first()
+    if favorite:
+        db.session.delete(favorite)
+        db.session.commit()
+        return jsonify({'message': 'Favorite deleted successfully'}), 200
+    return jsonify({'error': 'Favorite not found'}), 404
 
 
 
 #---------------------------------------------------------------------------
-    {
-      "email": "demo@aa.io",
-      "password": "password"
-    }
+    # {
+    #   "email": "demo@aa.io",
+    #   "password": "password"
+    # }
