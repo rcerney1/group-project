@@ -9,23 +9,23 @@ def seed_product_images():
         preview=True 
         )
     product_image_two = ProductImage(
-        product_id=2 , url='https://m.media-amazon.com/images/I/71u3LnGdzJL._SL1154_.jpg',
+        product_id=2 , url='https://hotoffthepresscomics.com/cdn/shop/products/202008-0000206277.jpg?v=1706292157&width=600',
         preview=True
         )
     product_image_three = ProductImage(
-        product_id=3 , url='https://m.media-amazon.com/images/I/71u3LnGdzJL._SL1154_.jpg',
+        product_id=3 , url='https://weirdsciencemarvelcomics.com/wp-content/uploads/2024/07/x-men-1-featured-image.jpg?w=960',
         preview=True
         )
     product_image_four = ProductImage(
-        product_id=4 , url='https://m.media-amazon.com/images/I/71u3LnGdzJL._SL1154_.jpg',
+        product_id=4 , url='https://m.media-amazon.com/images/I/41y5UwOsgmL._AC_UF1000,1000_QL80_.jpg',
         preview=True
         )
     product_image_five = ProductImage(
-        product_id=5 , url='https://m.media-amazon.com/images/I/71u3LnGdzJL._SL1154_.jpg',
+        product_id=5 , url='https://i.etsystatic.com/18403314/r/il/81de8c/3370251830/il_794xN.3370251830_54cy.jpg',
         preview=True
         )
     product_image_six = ProductImage(
-        product_id=6 , url='https://m.media-amazon.com/images/I/71u3LnGdzJL._SL1154_.jpg',
+        product_id=6 , url='https://cdn.marvel.com/u/prod/marvel/i/mg/1/c0/6467d294959d6/clean.jpg',
         preview=True
         )
 

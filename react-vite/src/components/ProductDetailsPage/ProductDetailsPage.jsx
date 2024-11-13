@@ -119,13 +119,13 @@ function ProductDetailsPage() {
                     {Array.isArray(reviews) && reviews.length > 0 ? (
                     reviews
                     .slice() 
-                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) 
+                    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) 
                     .map((review) => (
                     <div key={review.id}>
                         <div>
                             <div>{review.user?.first_name}</div>
                             <div>
-                                {new Date(review.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' })}
+                                {new Date(review.created_at).toLocaleString('default', { month: 'long', year: 'numeric' })}
                             </div>
                         </div>
                         <div>{review.review}</div>
