@@ -17,7 +17,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1>Welcome!</h1>,
+        element: <Products />,
       },
       {
         path: "login",
@@ -34,11 +34,7 @@ export const router = createBrowserRouter([
       {
         path:"checkout",
         element:<PurchasePage />
-      },
-      {
-        path: "products",  
-        element: <Products />,  
-      },
+      },      
       {
         path: "favorites",  
         element: <Favorites />,  
