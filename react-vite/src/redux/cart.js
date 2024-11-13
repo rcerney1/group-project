@@ -75,6 +75,7 @@ export const addCartItemThunk = (productId, quantity = 1) => async(dispatch) => 
     if(res.ok) {
         const data = await res.json();
         dispatch(addCartItem(data));
+        dispatch(getCartThunk())
         return data;
     }else {
         const errors = await res.json()
@@ -92,6 +93,7 @@ export const updateItemQuantityThunk = (itemId, quantity) => async(dispatch) => 
     if(res.ok) {
         const data = await res.json();
         dispatch(updateItemQuantity(data))
+        dispatch(getCartThunk())
         return data;
     }else {
         const errors = await res.json()
@@ -107,6 +109,7 @@ export const removeCartItemThunk = (itemId) => async(dispatch) => {
     if(res.ok) {
         const data = await res.json();
         dispatch(removeCartItem(data))
+        dispatch(getCartThunk())
         return data;
     }else {
         const errors = await res.json()
