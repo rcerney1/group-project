@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { getCartThunk, checkoutCartThunk } from "../../redux/cart";
+import {
+  getCartThunk,
+  checkoutCartThunk,
+  updateItemQuantityThunk,
+  removeCartItemThunk,
+} from "../../redux/cart";
 import { fetchProducts } from "../../redux/products";
 import "./CartPage.css";
 
@@ -16,18 +21,15 @@ function CartPage() {
   const cartProducts = cartArr.map((cartItem) => ({
     ...productsArr.find((product) => product.id === cartItem.product_id),
     quantity: cartItem.quantity,
+    item_id: cartItem.id,
   }));
 
-  const calculateTotal = () => {
-    return cartProducts
-      .reduce((total, item) => {
-        if (item) {
-          return total + Number(item.price) * Number(item.quantity);
-        }
-        return total;
-      }, 0)
-      .toFixed(2);
-  };
+  const calculateTotal = () =>
+    cartProducts.reduce(
+      (total, item) => total + (item ? Number(item.price) * item.quantity : 0),
+      0
+    ).toFixed(2);
+  
 
   useEffect(() => {
     dispatch(getCartThunk());
@@ -39,12 +41,20 @@ function CartPage() {
     navigate("/checkout");
   };
 
+  const handleQuantityChange = (itemId, newQuantity) => {
+    dispatch(updateItemQuantityThunk(itemId, newQuantity));
+  };
+
+  const handleRemoveItem = (itemId) => {
+    dispatch(removeCartItemThunk(itemId));
+  };
+
   if (cartArr.length === 0) {
     return (
-      <main>
+      <main className="cart-page-empty">
         <div>
           <h2>Your cart is empty</h2>
-          <Link to="/">Discover products!</Link>
+          <Link to="/">Add a little super to your cart!📚</Link>
         </div>
       </main>
     );
@@ -52,9 +62,8 @@ function CartPage() {
 
   if (!cartProducts) return <div>Loading...</div>;
 
-
   return (
-    <main>
+    <main className="cart-page-container">
       <div>
         <h1>
           {cartArr.length === 1
@@ -65,17 +74,36 @@ function CartPage() {
 
       {cartProducts.map((product) => (
         <div key={product.id} className="cart-item">
-          <h2>{product.name}</h2>
+          <h3>{product.name}</h3>
+          <img src={product.previewImage} alt={product.name}  className="cart-item-img" />
           <p>Price: ${product.price}</p>
-          <p>Quantity: {product.quantity}</p>
+          <p>
+            Quantity:
+            <select
+              value={product.quantity}
+              onChange={(e) =>
+                handleQuantityChange(product.item_id, Number(e.target.value))
+              }
+            >
+              {[...Array(10).keys()].map((_, index) => (
+                <option key={index + 1} value={index + 1}>
+                  {index + 1}
+                </option>
+              ))}
+            </select>
+          </p>
+          <button onClick={() => handleRemoveItem(product.item_id)}>
+            Remove
+          </button>
         </div>
       ))}
 
-      <div>
+      <div className="cart-footer">
         <h2>Total: ${calculateTotal()}</h2>
+        <button onClick={() => navigate("/products")}>Continue Shopping</button>
+        <button onClick={handleCheckout}>Checkout</button>
       </div>
-      <button onClick={() => navigate("/products")}>Continue Shopping</button>
-      <button onClick={handleCheckout}>Checkout</button>
+
     </main>
   );
 }
