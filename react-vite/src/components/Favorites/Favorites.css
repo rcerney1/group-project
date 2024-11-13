@@ -36,19 +36,40 @@
     object-fit: cover;
 }
 
-/* Heart (favorite) icon styling */
-.favorite-icon {
+/* Container for the heart icon to add a tooltip */
+.favorite-icon-container {
     position: absolute;
     top: 10px;
     right: 10px;
+    cursor: pointer;
+}
+
+/* Heart (favorite) icon styling */
+.favorite-icon {
     font-size: 1.5rem;
     color: #FF0000; /* Red color for the heart */
-    cursor: pointer;
     transition: color 0.3s ease;
 }
 
-.favorite-icon:hover {
+.favorite-icon-container:hover .favorite-icon {
     color: #cc0000; /* Darker shade when hovered */
+}
+
+/* Tooltip styling */
+.favorite-icon-container:hover::after {
+    content: "Remove from Favorites"; /* Tooltip text */
+    position: absolute;
+    top: -25px; /* Position the tooltip above the icon */
+    right: 0;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0.9;
+    z-index: 1;
+    pointer-events: none; /* Tooltip does not interfere with mouse events */
 }
 
 /* Container for product or favorite details */
