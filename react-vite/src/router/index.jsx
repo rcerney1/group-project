@@ -9,6 +9,8 @@ import Favorites from '../components/Favorites/Favorites';
 import CartPage from '../components/Cart';
 import PurchasePage from '../components/PurchaseConfirm';
 import ManageProductsPage from '../components/ManageProductsPage/ManageProductsPage.jsx';
+import CreateProductForm from '../components/CreateProductForm/CreateProductForm';
+
 
 
 
@@ -18,7 +20,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1>Welcome!</h1>,
+        element: <Products />,
       },
       {
         path: "login",
@@ -37,10 +39,6 @@ export const router = createBrowserRouter([
         element:<PurchasePage />
       },
       {
-        path: "products",  
-        element: <Products />,  
-      },
-      {
         path: "favorites",  
         element: <Favorites />,  
       },
@@ -55,6 +53,10 @@ export const router = createBrowserRouter([
       {
         path: "/products/manage",
         element: <ManageProductsPage/>
+      },
+      {
+        path: "/products/new",
+        element: <CreateProductForm />,
       },
       {
         path: "*",

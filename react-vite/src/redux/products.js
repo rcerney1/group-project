@@ -6,6 +6,10 @@ const UPDATE_PRODUCT = "products/updateProduct";
 const DELETE_PRODUCT = "products/deleteProduct";
 const LOAD_PRODUCT_DETAILS = 'products/loadProductDetails';
 const LOAD_USER_PRODUCTS = 'products/loadUserProducts'
+const LOAD_PRODUCT_DETAILS = "products/loadProductDetails";
+const ADD_PRODUCT_IMAGE = "products/addProductImage";
+const UPDATE_PRODUCT_IMAGE = "products/updateProductImage"
+const CLEAR_PRODUCT_DETAILS = "producst/clearProductDetails"
 
 
 // Action Creators
@@ -37,7 +41,18 @@ const deleteProduct = (productId) => ({
 const loadProductDetails = (product) => ({
     type: LOAD_PRODUCT_DETAILS,
     product
+});
+
+const addProductImage = (image) => ({
+    type: ADD_PRODUCT_IMAGE,
+    image,
+});
+
+const updateProductImage = (image) => ({
+    type: UPDATE_PRODUCT_IMAGE,
+    image,
 })
+
 
 const loadUserProducts = (products) => ({
     type: LOAD_USER_PRODUCTS,
@@ -46,6 +61,10 @@ const loadUserProducts = (products) => ({
 
 
 // Thunks
+
+export const clearProductDetails = () => ({
+    type: CLEAR_PRODUCT_DETAILS,
+}) 
 
 export const fetchProductDetails = (productId) => async (dispatch) => {
     const response = await fetch(`/api/products/${productId}`)
@@ -93,6 +112,9 @@ export const createNewProduct = (productData) => async (dispatch) => {
         const newProduct = await response.json();
         dispatch(createProduct(newProduct));
         return newProduct;
+    }else {
+        const errorData = await response.json();
+        return { errors: errorData.errors };
     }
 };
 
@@ -127,6 +149,7 @@ export const deleteProductById = (id) => async (dispatch) => {
     }
 };
 
+
 export const fetchUserProducts = () => async (dispatch) => {
     const response = await fetch('/api/products/current');
     if (response.ok) {
@@ -134,6 +157,46 @@ export const fetchUserProducts = () => async (dispatch) => {
         dispatch(loadUserProducts(data.Products))
     }
 }
+
+
+export const addProductImageThunk = (productId, imageData) => async (dispatch) => {
+    const response = await fetch(`/api/products/${productId}/images`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(imageData),
+    });
+
+    if (response.ok) {
+        const newImage = await response.json();
+        dispatch(addProductImage(newImage));
+        return newImage;
+    } else {
+        const errorData = await response.json();
+        return { errors: errorData.errors };
+    }
+}
+
+export const updateProductImageThunk = (productId, imageId, imageData) => async (dispatch) => {
+    const response = await fetch(`/api/products/${productId}/images/${imageId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(imageData),
+    });
+
+    if (response.ok) {
+        const updatedImage = await response.json();
+        dispatch(updateProductImage(updatedImage));
+        return updatedImage;
+    } else {
+        const errorData = await response.json();
+        return { errors: errorData.errors };
+    }
+};
+
 
 // Initial State
 const initialState = {
@@ -196,6 +259,34 @@ const productsReducer = (state = initialState, action) => {
                 newUserProducts[product.id] = product;
             });
             return {...state, userProducts: newUserProducts}
+        case ADD_PRODUCT_IMAGE: {
+            return {
+                ...state,
+                productDetails: {
+                    ...state.productDetails,
+                    ProductImages: [
+                        ...(state.productDetails?.ProductImages || []),
+                        action.image,
+                    ],
+                },
+            };
+        }
+        case UPDATE_PRODUCT_IMAGE: {
+            return {
+                ...state,
+                productDetails: {
+                    ...state.productDetails,
+                    ProductImages: state.productDetails.ProductImages.map((image) =>
+                        image.id === action.image.id ? action.image : image
+                    ),
+                },
+            };
+        }
+        case CLEAR_PRODUCT_DETAILS: {
+            return {
+                ...state,
+                productDetails: null
+            }
         }
         default:
             return state;
