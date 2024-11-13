@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchFavorites, toggleFavorite } from '../../redux/favorites';
+import { fetchFavorites, deleteFavorite, addFavorite } from '../../redux/favorites';
 import './Favorites.css';
 import { NavLink } from 'react-router-dom';
 import { FaStar, FaHeart } from 'react-icons/fa';
@@ -12,8 +12,12 @@ const Favorites = () => {
         dispatch(fetchFavorites()); // Fetch all favorites initially
     }, [dispatch]);
 
+    const handleAddFavorite = (productId) => {
+        dispatch(addFavorite(productId)); // Add to favorites
+    };
+
     const handleRemoveFavorite = (productId) => {
-        dispatch(toggleFavorite(productId)); // Toggle favorite to remove it if it’s already favorited
+        dispatch(deleteFavorite(productId)); //  Remove from favorites
     };
 
     return (
