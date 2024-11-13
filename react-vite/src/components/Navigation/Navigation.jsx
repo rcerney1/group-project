@@ -6,6 +6,8 @@ import { MdFavorite } from "react-icons/md";
 import { FaShoppingCart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
+
+
 function Navigation() {
   const user = useSelector((store) => store.session.user);
   const navigate = useNavigate();
@@ -15,7 +17,7 @@ function Navigation() {
         <li className='logo-container'>
           <NavLink to="/">
             <img src='/comic.png' alt="Logo" className="logo" />
-            Comic Cache
+            <span className="logo-text">Comic Cache</span>
           </NavLink>
         </li>
 
@@ -40,6 +42,8 @@ function Navigation() {
         </li>
       </ul>
     </nav>
+    
+    
   );
 }
 

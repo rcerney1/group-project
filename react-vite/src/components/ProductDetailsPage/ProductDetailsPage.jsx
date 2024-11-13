@@ -6,7 +6,7 @@ import OpenModalButton from '../OpenModalButton'
 import CreateReviewModal from "../CreateReviewModal/CreateReviewModal.jsx";
 import DeleteReviewModal from "../DeleteReviewModal/DeleteReviewModal.jsx";
 import { fetchProductDetails, fetchProducts } from "../../redux/products.js";
-import { fetchProductReviews } from "../../redux/reviews.js";
+import { fetchProductReviews, clearReviews } from "../../redux/reviews.js";
 import { addCartItemThunk} from "../../redux/cart.js";
 import { clearProductDetails } from "../../redux/products.js";
 
@@ -23,6 +23,7 @@ function ProductDetailsPage() {
     const navigate = useNavigate();
        
     useEffect(() => {
+        dispatch(clearReviews())
         dispatch(fetchProductDetails(productId))
         dispatch(fetchProductReviews(productId))
         dispatch(fetchProducts());

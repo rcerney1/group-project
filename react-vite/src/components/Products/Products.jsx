@@ -68,7 +68,7 @@ const Products = () => {
                     </div>
                     <div className="product-info">
                         <NavLink to={`/products/${product.id}`} className="product-link">
-                            <h3>{product?.name}</h3>
+                            <h3 className='product-name'>{product?.name}</h3>
                         </NavLink>
                         <div className="product-details">
                             <span className="product-rating">

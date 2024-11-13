@@ -1,10 +1,10 @@
 /* Container for the entire products or favorites section */
-.container {
+.favorites-container .container {
     padding: 20px;
 }
 
 /* Container to center and set max width for product or favorite tiles */
-.products-container, .favorites-container {
+.favorites-container .products-container, .favorites-container {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
@@ -13,7 +13,7 @@
 }
 
 /* Style for each tile */
-.product-tile, .favorite-tile {
+.favorites-container .product-tile, .favorite-tile {
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
@@ -25,19 +25,19 @@
 }
 
 /* Container for image and heart icon */
-.image-container {
+.favorites-container .image-container {
     position: relative;
 }
 
 /* Image styling */
-.product-image {
+.favorites-container .product-image {
     width: 100%;
     height: 180px;
     object-fit: cover;
 }
 
 /* Heart (favorite) icon styling */
-.favorite-icon {
+.favorites-container .favorite-icon {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -47,31 +47,31 @@
     transition: color 0.3s ease;
 }
 
-.favorite-icon:hover {
+.favorites-container .favorite-icon:hover {
     color: #cc0000; /* Darker shade when hovered */
 }
 
 /* Container for product or favorite details */
-.product-details {
+.favorites-container .product-details {
     padding: 10px;
 }
 
 /* Wrapper for name and rating */
-.product-details-wrapper {
+.favorites-container .product-details-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 /* Style for product or favorite name */
-.product-name {
+.favorites-container .product-name {
     font-size: 18px;
     font-weight: bold;
     margin: 0;
 }
 
 /* Style for price */
-.product-price {
+.favorites-container .product-price {
     font-weight: bold;
     font-size: 16px;
     color: #333;
@@ -79,17 +79,17 @@
 }
 
 /* Star rating styling */
-.product-rating {
+.favorites-container .product-rating {
     display: flex;
     align-items: center;
     gap: 2px;
 }
 
 /* Filled and empty star styling */
-.filled-star {
+.favorites-container .filled-star {
     color: #ffc107;
 }
 
-.empty-star {
+.favorites-container .empty-star {
     color: #e4e5e9;
 }
