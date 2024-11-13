@@ -18,6 +18,18 @@ const Favorites = () => {
     };
 
     return (
+        <div className='favorites-container'>
+            <div className="products-container">
+                {favorites.length > 0 ? (
+                    favorites.map((favorite) => (
+                        <div key={favorite.product?.id} className="product-tile">
+                            <NavLink to={`/products/${favorite.product?.id}`}>
+                                <div className="image-container">
+                                    <img
+                                        src={favorite.product?.previewImage || '/default-image.jpg'}
+                                        alt={favorite.product?.name}
+                                        className="product-image" 
+                                    />
         <div className="products-container">
             {favorites.length > 0 ? (
                 favorites.map((favorite) => (
@@ -45,15 +57,24 @@ const Favorites = () => {
                                     <span className="product-rating">
                                         {favorite.product?.avgRating?.toFixed(1)} <FaStar className="single-star" />
                                     </span>
+
                                 </div>
-                                <div className="product-price">${favorite.product?.price}</div>
-                            </div>
-                        </NavLink>
-                    </div>
-                ))
-            ) : (
-                <p>No favorites yet!</p>
-            )}
+                                <div className="product-details">
+                                    <div className="product-details-wrapper">
+                                        <h3>{favorite.product?.name}</h3>
+                                        <span className="product-rating">
+                                            {favorite.product?.avgRating?.toFixed(1)} <FaStar className="single-star" />
+                                        </span>
+                                    </div>
+                                    <div className="product-price">${favorite.product?.price}</div>
+                                </div>
+                            </NavLink>
+                        </div>
+                    ))
+                ) : (
+                    <p>No favorites yet!</p>
+                )}
+            </div>
         </div>
     );
 };

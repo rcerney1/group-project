@@ -3,6 +3,9 @@
     flex-wrap: wrap;
     gap: 20px;
     padding-top: 80px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .product-tile {
@@ -14,6 +17,12 @@
     overflow: hidden;
     text-align: center;
     padding: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-tile:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .image-container {
@@ -52,13 +61,13 @@
 .product-link h3 {
     margin: 0;
     font-size: 1.1em;
-    color: #4a148c; /* Adjust color as needed */
+    color: blue; 
     text-decoration: none;
 }
 
 .product-rating {
     font-size: 1em;
-    color: #4a148c; /* Adjust color as needed */
+    color: blue; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,4 +85,13 @@
     font-size: 1.2em;
     color: #333;
     margin-top: 5px;
+}
+
+.product-name, .product-price, .product-rating {
+    font-family: 'Bangers', sans-serif;
+}
+
+a{
+    font-size: 24px;
+    text-decoration: none;  
 }

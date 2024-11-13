@@ -2,6 +2,8 @@
 const ADD_REVIEW = "reviews/addReview"
 const DELETE_REVIEW = "reviews/deleteReview"
 const LOAD_PRODUCT_REVIEWS ="reviews/LOAD_PRODUCT_REVIEWS"
+const CLEAR_REVIEWS = 'reviews/clearReviews'
+
 //Action Creators
 const addReview = (review) => ({
     type: ADD_REVIEW,
@@ -18,6 +20,10 @@ const loadProductReviews = (reviews) => ({
     reviews,
 })
 
+export const clearReviews = () => ({
+    type: CLEAR_REVIEWS
+});
+
 //Thunks
 
 //Thunk to Load All Reviews for a Product
@@ -25,7 +31,7 @@ export const fetchProductReviews = (productId) => async (dispatch) => {
     const response = await fetch(`/api/products/${productId}/reviews`)
     if (response.ok) {
         const data = await response.json();
-        console.log('DATA-------->', data)
+        console.log('\nDATA-------->\n', data)
         dispatch(loadProductReviews(data.reviews))
     }
 }
@@ -79,6 +85,8 @@ function reviewsReducer(state = initialState, action) {
             return {...state, reviews: state.reviews.filter(review => review.id !== action.payload)}
         case LOAD_PRODUCT_REVIEWS:
             return { ...state, reviews: action.reviews };
+        case CLEAR_REVIEWS:
+            return{...state, reviews: []}
         default:
             return state
     }
