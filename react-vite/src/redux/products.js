@@ -7,7 +7,7 @@ const DELETE_PRODUCT = "products/deleteProduct";
 const LOAD_PRODUCT_DETAILS = "products/loadProductDetails";
 const ADD_PRODUCT_IMAGE = "products/addProductImage";
 const UPDATE_PRODUCT_IMAGE = "products/updateProductImage"
-
+const CLEAR_PRODUCT_DETAILS = "producst/clearProductDetails"
 
 
 // Action Creators
@@ -50,6 +50,10 @@ const updateProductImage = (image) => ({
     type: UPDATE_PRODUCT_IMAGE,
     image,
 })
+
+export const clearProductDetails = () => ({
+    type: CLEAR_PRODUCT_DETAILS,
+}) 
 
 export const fetchProductDetails = (productId) => async (dispatch) => {
     const response = await fetch(`/api/products/${productId}`)
@@ -248,6 +252,12 @@ const productsReducer = (state = initialState, action) => {
                     ),
                 },
             };
+        }
+        case CLEAR_PRODUCT_DETAILS: {
+            return {
+                ...state,
+                productDetails: null
+            }
         }
         default:
             return state;
