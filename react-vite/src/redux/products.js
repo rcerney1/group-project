@@ -4,6 +4,8 @@ const LOAD_PRODUCT = "products/loadProduct";
 const CREATE_PRODUCT = "products/createProduct";
 const UPDATE_PRODUCT = "products/updateProduct";
 const DELETE_PRODUCT = "products/deleteProduct";
+const LOAD_PRODUCT_DETAILS = 'products/loadProductDetails';
+const LOAD_USER_PRODUCTS = 'products/loadUserProducts'
 const LOAD_PRODUCT_DETAILS = "products/loadProductDetails";
 const ADD_PRODUCT_IMAGE = "products/addProductImage";
 const UPDATE_PRODUCT_IMAGE = "products/updateProductImage"
@@ -51,6 +53,15 @@ const updateProductImage = (image) => ({
     image,
 })
 
+
+const loadUserProducts = (products) => ({
+    type: LOAD_USER_PRODUCTS,
+    products
+})
+
+
+// Thunks
+
 export const clearProductDetails = () => ({
     type: CLEAR_PRODUCT_DETAILS,
 }) 
@@ -65,7 +76,7 @@ export const fetchProductDetails = (productId) => async (dispatch) => {
     }
 };
 
-// Thunks
+
 export const fetchProducts = () => async (dispatch) => {
     const response = await fetch("/api/products/");
     console.log("\nStep2\n")
@@ -138,6 +149,16 @@ export const deleteProductById = (id) => async (dispatch) => {
     }
 };
 
+
+export const fetchUserProducts = () => async (dispatch) => {
+    const response = await fetch('/api/products/current');
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(loadUserProducts(data.Products))
+    }
+}
+
+
 export const addProductImageThunk = (productId, imageData) => async (dispatch) => {
     const response = await fetch(`/api/products/${productId}/images`, {
         method: "POST",
@@ -176,10 +197,12 @@ export const updateProductImageThunk = (productId, imageId, imageData) => async 
     }
 };
 
+
 // Initial State
 const initialState = {
     allProducts: {},
     productDetails: null,
+    userProducts: {}
 };
 
 // Reducer
@@ -230,6 +253,12 @@ const productsReducer = (state = initialState, action) => {
             delete newState.allProducts[action.productId];
             return newState;
         }
+        case LOAD_USER_PRODUCTS: {
+            const newUserProducts = {};
+            action.products.forEach((product) => {
+                newUserProducts[product.id] = product;
+            });
+            return {...state, userProducts: newUserProducts}
         case ADD_PRODUCT_IMAGE: {
             return {
                 ...state,

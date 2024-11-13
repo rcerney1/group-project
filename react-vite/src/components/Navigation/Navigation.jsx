@@ -10,9 +10,9 @@ function Navigation() {
   const user = useSelector((store) => store.session.user);
   const navigate = useNavigate();
   return (
-    <nav>
+    <nav className='navigation-bar'>
       <ul className="nav-bar-elements">
-        <li>
+        <li className='logo-container'>
           <NavLink to="/">
             <img src='/comic.png' alt="Logo" className="logo" />
             Comic Cache

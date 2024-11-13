@@ -1,5 +1,5 @@
+from datetime import datetime
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-
 
 class Review(db.Model):
     __tablename__ = 'reviews'
@@ -12,7 +12,9 @@ class Review(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     review = db.Column(db.Text, nullable=False)
     stars = db.Column(db.Integer, nullable=False)
- 
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+
     # Relationships
     products = db.relationship('Product', back_populates='reviews')
     user = db.relationship('User', back_populates='reviews')
@@ -24,8 +26,12 @@ class Review(db.Model):
             'user_id': self.user_id,
             'review': self.review,
             'stars': self.stars,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+        }
             'user': {
                 'first_name': self.user.first_name,
                 'last_name': self.user.last_name
             }
         }
+

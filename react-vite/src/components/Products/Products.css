@@ -10,6 +10,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px; /* space between tiles */
+    padding-top: 80px;
 }
 
 /* Style for each tile */
