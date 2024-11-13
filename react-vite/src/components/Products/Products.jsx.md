@@ -29,14 +29,10 @@ const Products = () => {
             await dispatch(deleteFavorite(productId)); // Remove from favorites if already favorited                       
         } else {           
             await dispatch(addFavorite(productId));
-            // await dispatch(fetchFavorites());
+            await dispatch(fetchFavorites());
            
         }
     };
-
-    useEffect(() => {
-        dispatch(fetchFavorites()); // Fetch favorites on initial mount and when `favoriteIds` changes
-    }, [dispatch, favoriteIds.length]);
 
    
     useEffect(() => {
