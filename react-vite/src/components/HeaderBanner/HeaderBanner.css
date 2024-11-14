@@ -1,0 +1,39 @@
+.header-banner {
+    position: relative;
+    background-image: url('/path/to/your/comic-background.jpg'); /* Replace with your image path */
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.header-banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Overlay color for contrast */
+    z-index: 1;
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    font-family: 'Bangers', sans-serif; /* Comic book font */
+}
+
+.header-content h1 {
+    font-size: 3em;
+    margin: 0;
+}
+
+.header-content p {
+    font-size: 1.2em;
+    margin: 0.5em 0 0;
+}

@@ -4,7 +4,7 @@ from sqlalchemy.sql import text
 def seed_reviews():
     review1 = Review(
         product_id=1,
-        user_id=1,
+        user_id=2,
         review="This was a great comic book!",
         stars=5,
     )
@@ -22,7 +22,7 @@ def seed_reviews():
     )
     review4 = Review(
         product_id=4,
-        user_id=1,
+        user_id=3,
         review="This was a decent comic book!",
         stars=3,
     )
