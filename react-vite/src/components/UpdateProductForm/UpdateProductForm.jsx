@@ -52,9 +52,10 @@ const UpdateProductForm = () => {
         price,
         description,
     };
+    console.log(updatedProduct)
 
     const updateResult = await dispatch(updateProductById(productId, updatedProduct));
-
+    
     if (updateResult.errors) {
         setErrors(updateResult.errors);
         return;
@@ -66,7 +67,7 @@ const UpdateProductForm = () => {
             preview: true,
         })
     );
-
+    
     if (imageResult.errors) {
         setErrors((prevErrors) => ({
             ...prevErrors,
