@@ -14,6 +14,12 @@
   border-radius: 8px;
 }
 
+@media (max-width: 1450px) {
+  .profile-dropdown{
+    left: auto;
+  }
+}
+
 .profile-dropdown li {
   padding: 0.7rem 1.2rem;
   font-size: 15px;
