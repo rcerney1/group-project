@@ -11,7 +11,7 @@
 .product-tile {
     position: relative;
     width: 250px;
-    background: #fff;
+    background: #FFFAFA;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     overflow: hidden;
@@ -31,9 +31,8 @@
 
 .product-image {
     width: 100%;
-    height: auto;
-    border-radius: 8px;
-    display: block;
+    height: 180px;
+    object-fit: cover;
 }
 
 /* Heart icon styling */

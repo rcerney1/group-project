@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserProducts, deleteProductById } from '../../redux/products';
+import { fetchUserProducts } from '../../redux/products';
 import { useNavigate } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeleteProductModal from "../DeleteProductModal/DeleteProductModal";

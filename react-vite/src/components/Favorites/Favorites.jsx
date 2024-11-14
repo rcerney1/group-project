@@ -12,9 +12,6 @@ const Favorites = () => {
         dispatch(fetchFavorites()); // Fetch all favorites initially
     }, [dispatch]);
 
-    // const handleAddFavorite = (productId) => {
-    //     dispatch(addFavorite(productId)); // Add to favorites
-    // };
 
     const handleRemoveFavorite = (productId) => {
         dispatch(deleteFavorite(productId)); //  Remove from favorites

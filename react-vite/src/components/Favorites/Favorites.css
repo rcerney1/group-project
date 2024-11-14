@@ -33,7 +33,7 @@
 .favorites-container .product-image {
     width: 100%;
     height: 180px;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 /* Heart (favorite) icon styling */
