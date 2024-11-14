@@ -61,6 +61,3 @@ const Favorites = () => {
 export default Favorites;
 
 
-
-// #----------------------------------------
-// http://localhost:5173/
