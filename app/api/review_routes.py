@@ -11,7 +11,6 @@ review_routes = Blueprint('reviews', __name__)
 @login_required
 def create_review(product_id):
     
-    print('\n\n we are in the POST route')
     #check if product exists
     product = Product.query.get(product_id)
     if not product:
@@ -20,7 +19,6 @@ def create_review(product_id):
     #check if user already has reviewed product
     existing_review = Review.query.filter_by(product_id=product_id, user_id=current_user.id).first()
     if existing_review:
-        print("User has already submited a review")
         return {"errors": ["User already has a review for this product"]}, 403
     
     form = ReviewForm()
@@ -40,7 +38,6 @@ def create_review(product_id):
 #Get all reviews for a product
 @review_routes.route('/products/<product_id>/reviews', methods=['GET'])
 def get_product_reviews(product_id):
-    print('\n\n we are in the get reviews route\n\n')
     reviews = Review.query.filter_by(product_id=product_id).all()
 
     if not reviews:

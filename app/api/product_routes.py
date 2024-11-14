@@ -8,8 +8,6 @@ product_routes = Blueprint('products', __name__)
 #Get all Products
 @product_routes.route('/', methods=['GET'])
 def get_all_products():
-
-    print("\nStep3\n")
     """
     Fetch all products with their avgRating and previewImage
     """
@@ -40,9 +38,8 @@ def get_product_details(product_id):
 @product_routes.route('', methods=['POST'])
 @login_required
 def create_product():
-    print(request)
     data = request.get_json()
-
+    
     errors = {}
     if not data.get('name') or len(data['name']) > 50:
         errors['name'] = "Name must be less than 50 characters"
@@ -50,7 +47,9 @@ def create_product():
         errors['description'] = "Description is required"
     
     price = float(data['price'])
-   
+    if not data['name']:
+        errors['name'] = 'Name is required'
+
     if price <= 0:
         errors['price'] = "Price must be a positive number"
 
@@ -82,7 +81,6 @@ def edit_product(product_id):
         return jsonify({"message": "Unauthorized"}), 403
     
     data = request.get_json()
-    print('DATA', data)
 
     errors= {}
     if not data.get('name') or len(data['name']) > 50:
@@ -119,9 +117,12 @@ def add_product_image(product_id):
         return jsonify({"message": "Unauthorized"}), 403
     
     data = request.get_json()
-
+    print('\n\nimage data: \n\n', data)
     if not data.get('url'):
         return jsonify({"message": "Bad Request", "errors": {"url": "URL is required"}})
+    errors ={}
+    if not data['url']:
+        errors['url'] = 'Product image required'
     
     new_image = ProductImage(
         product_id=product_id,

@@ -31,7 +31,6 @@ export const fetchProductReviews = (productId) => async (dispatch) => {
     const response = await fetch(`/api/products/${productId}/reviews`)
     if (response.ok) {
         const data = await response.json();
-        console.log('\nDATA-------->\n', data)
         dispatch(loadProductReviews(data.reviews))
     }
 }

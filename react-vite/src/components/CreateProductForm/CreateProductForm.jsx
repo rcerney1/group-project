@@ -18,12 +18,16 @@ const CreateProductForm = () => {
 
         const productData = { name, price, description };
         const productResult = await dispatch(createNewProduct(productData));
-
+        
         if (productResult.errors) {
+            console.log(productResult.errors)
             setErrors(productResult.errors);
             return;
         }
-
+        if (!previewImageURL){
+            setErrors({...errors, previewImage: 'Product Image Required'})
+            return;
+        }
         if (previewImageURL) {
             const imageResult = await dispatch(
                 addProductImageThunk(productResult.id, {
@@ -93,6 +97,7 @@ const CreateProductForm = () => {
                             value={previewImageURL}
                             onChange={(e) => setPreviewImageURL(e.target.value)}
                             placeholder="Enter image URL"
+                            
                         />
                     </label>
                     {errors.previewImage && <p className="error">{errors.previewImage}</p>}

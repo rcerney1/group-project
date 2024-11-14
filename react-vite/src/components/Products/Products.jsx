@@ -83,6 +83,12 @@ const Products = () => {
                                     e.preventDefault();
                                     handleFavoriteToggle(e, product)
                                 }}
+                                style={{
+                                    fontSize: '2rem',          
+                                    color: '#ffffff',             
+                                    filter: 
+                                        'drop-shadow(0px 0px 1px black)'                                 
+                                }}
                             />
                             )}
                             
