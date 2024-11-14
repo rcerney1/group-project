@@ -68,44 +68,16 @@ function ProductDetailsPage() {
         </div>    
             <div className="product-detail-info">
                     <h3>{productDetails.name}</h3> 
-                    <div>Sold by {productDetails.Owner.firstName} {productDetails.Owner.lastName}</div>
-                    <div>${productDetails.price}</div>
+                    <div className="owner-info">Sold by {productDetails.Owner.firstName} {productDetails.Owner.lastName}</div>
+                    <div className="price">$ {productDetails.price}</div>
                     <div><button onClick={handleAddtoCartClick}>Add to Cart</button></div>
                     <div>{productDetails.description}</div>
             </div>
         </div>   
-            <div>
-
-                <h3>Ratings and Reviews</h3>
-                
-                <div>
-
-                    <div>
-                        
-                        <div>
-                            <div>
-                                <span>★</span> 
-                                {productDetails.avgRating ? productDetails.avgRating.toFixed(1) : 'New'} 
-                                {productDetails.numReviews > 0 && (
-                                    <>
-                                        <span> · </span>
-                                        {productDetails.numReviews === 1 ? "1 Review" : `${productDetails.numReviews} Reviews`}
-                                    </>
-                                )}
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-
-            <hr/>
-    
-            <div>
-                <h3>Reviews</h3>
-                <div>
-                    <div>
-                        <span>★</span> 
+            <div className="ratings">
+                <h2>Ratings and Reviews</h2>
+                    <h3>
+                        <span>⭐️ </span> 
                         {productDetails.avgRating ? productDetails.avgRating.toFixed(1) : 'New'} 
                         {productDetails.numReviews > 0 && (
                             <>
@@ -113,8 +85,15 @@ function ProductDetailsPage() {
                                 {productDetails.numReviews === 1 ? "1 Review" : `${productDetails.numReviews} Reviews`}
                             </>
                         )}
-                    </div>
-                </div>
+                    </h3>
+ 
+            </div>
+
+            <hr/>
+    
+
+            <div className="product-review">
+                <h3>Reviews</h3>
                 <div>
                     {currentUser && !userHasPostedReview && !isProductOwner && (
                         <OpenModalButton
@@ -124,6 +103,7 @@ function ProductDetailsPage() {
                         />
                     )}
                 </div>
+          
     
                 <div>
                     {Array.isArray(reviews) && reviews.length > 0 ? (
@@ -132,9 +112,10 @@ function ProductDetailsPage() {
                     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) 
                     .map((review) => (
                     <div key={review.id}>
-                        <div>
-                            <div>{review.user?.first_name}</div>
-                            <div>
+                        <div className="review-details">
+                            <div> ⭐️ {review.stars} </div>
+                            <div className="review-user">{review.user?.first_name}</div>
+                            <div className="review-date">
                                 {new Date(review.created_at).toLocaleString('default', { month: 'long', year: 'numeric' })}
                             </div>
                         </div>
@@ -149,9 +130,9 @@ function ProductDetailsPage() {
                         <hr />
                     </div>
                  ))
-        ) : ( 
-            <div>Be the first to post a review!</div>
-         )}
+                ) : ( 
+                    <div>Be the first to post a review!</div>
+                )}
                 </div>
             </div>
         </div>

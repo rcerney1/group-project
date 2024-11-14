@@ -8,6 +8,7 @@ import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
 import { FaStar } from 'react-icons/fa';
 import { CiHeart } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa6";
+import Carousel from '../HomeBanner';
 
 const Products = () => {
     const dispatch = useDispatch();
@@ -61,6 +62,9 @@ const Products = () => {
     };
 
     return (
+        <div>
+
+        <Carousel />
         <div className="products-container">
             
             {products.map((product) => {
@@ -82,6 +86,12 @@ const Products = () => {
                                 onClick={(e) => {
                                     e.preventDefault();
                                     handleFavoriteToggle(e, product)
+                                }}
+                                style={{
+                                    fontSize: '2rem',          
+                                    color: '#ffffff',             
+                                    filter: 
+                                        'drop-shadow(0px 0px 1px black)'                                 
                                 }}
                             />
                             )}
@@ -117,6 +127,7 @@ const Products = () => {
                     modalValue="product"
                 />
             )}
+        </div>
         </div>
     );
 

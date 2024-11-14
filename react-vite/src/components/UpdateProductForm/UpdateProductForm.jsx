@@ -31,48 +31,54 @@ const UpdateProductForm = () => {
           }
       }
   }, [productDetails]);
-    const handleSubmit = async (e) => {
-      e.preventDefault();
 
-      const updatedProduct = {
-          name,
-          price,
-          description,
-      };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-      setErrors({});
+    const validationErrors = {};
 
-      try {
-          const result = await dispatch(updateProductById(productId, updatedProduct));
+    if (!name) validationErrors.name = "Product name is required.";
+    if (!price || price <= 0) validationErrors.price = "Price must be a positive number.";
+    if (!description) validationErrors.description = "Description is required.";
+    if (!imageURL) validationErrors.imageURL = "Product image is required.";
 
-          if (result.errors) {
-              setErrors(result.errors);
-              return;
-          }
+    if (Object.keys(validationErrors).length > 0) {
+        setErrors(validationErrors);
+        return;
+    }
 
-          if (imageURL) {
-              const imageResult = await dispatch(
-                  updateProductImageThunk(productId, imageId, {
-                      url: imageURL,
-                      preview: true,
-                  })
-              );
+    const updatedProduct = {
+        name,
+        price,
+        description,
+    };
 
-              if (imageResult.errors) {
-                  setErrors((prevErrors) => ({
-                      ...prevErrors,
-                      imageURL: imageResult.errors.url,
-                  }));
-                  return;
-              }
-          }
+    const updateResult = await dispatch(updateProductById(productId, updatedProduct));
 
-          await dispatch(fetchProductDetails(productId));
-          navigate(`/products/${productId}`);
-      } catch (error) {
-          console.error('Error updating product:', error);
-      }
-  };
+    if (updateResult.errors) {
+        setErrors(updateResult.errors);
+        return;
+    }
+
+    const imageResult = await dispatch(
+        updateProductImageThunk(productId, imageId, {
+            url: imageURL,
+            preview: true,
+        })
+    );
+
+    if (imageResult.errors) {
+        setErrors((prevErrors) => ({
+            ...prevErrors,
+            imageURL: imageResult.errors.url || "Invalid image URL",
+        }));
+        return;
+    }
+
+    await dispatch(fetchProductDetails(productId));
+    navigate(`/products/${productId}`);
+};
+ 
   
     if (!productDetails) return <div>Loading...</div>;
   

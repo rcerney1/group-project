@@ -6,7 +6,7 @@ import Layout from './Layout';
 import UpdateProductForm from '../components/UpdateProductForm/UpdateProductForm';
 import Products from '../components/Products/Products';
 import Favorites from '../components/Favorites/Favorites';
-import CartPage from '../components/Cart';
+import CartPage from '../components/CartPage';
 import PurchasePage from '../components/PurchaseConfirm';
 import ManageProductsPage from '../components/ManageProductsPage/ManageProductsPage.jsx';
 import CreateProductForm from '../components/CreateProductForm/CreateProductForm';
