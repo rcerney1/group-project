@@ -37,9 +37,11 @@ function ProfileButton() {
 
   const logout = (e) => {
     e.preventDefault();
-    dispatch(thunkLogout());
-    closeMenu();
-    navigate("/");
+    dispatch(thunkLogout())
+    .then(() => {
+      closeMenu();
+      window.location.href='/'
+    })
   };
 
   return (
