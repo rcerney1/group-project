@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import OpenModalButton from '../OpenModalButton'
+import ConfirmCheckout from "../ConfirmCheckoutModal";
 import {
   getCartThunk,
-  checkoutCartThunk,
   updateItemQuantityThunk,
   removeCartItemThunk,
 } from "../../redux/cart";
@@ -36,10 +37,6 @@ function CartPage() {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  const handleCheckout = () => {
-    dispatch(checkoutCartThunk());
-    navigate("/checkout");
-  };
 
   const handleQuantityChange = (itemId, newQuantity) => {
     dispatch(updateItemQuantityThunk(itemId, newQuantity));
@@ -103,7 +100,11 @@ function CartPage() {
       <div className="cart-footer">
         <h2>Total: ${calculateTotal()}</h2>
         <button className="continue-button" onClick={() => navigate("/")}>Continue Shopping</button>
-        <button className="checkout-button" onClick={handleCheckout}>Checkout</button>
+        <OpenModalButton
+           buttonText="Checkout"
+           modalComponent={<ConfirmCheckout />}
+           className="checkout-button"
+        />
       </div>
 
     </main>
