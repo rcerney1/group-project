@@ -43,7 +43,7 @@ function ProfileButton() {
   };
 
   return (
-    <>
+    <div style={{position: 'relative'}}>
       <button onClick={toggleMenu}>
         <FaUserCircle />
       </button>
@@ -79,7 +79,7 @@ function ProfileButton() {
           )}
         </ul>
       )}
-    </>
+    </div>
   );
 }
 
