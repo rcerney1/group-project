@@ -41,6 +41,7 @@ const UpdateProductForm = () => {
     if (!price || price <= 0) validationErrors.price = "Price must be a positive number.";
     if (!description) validationErrors.description = "Description is required.";
     if (!imageURL) validationErrors.imageURL = "Product image is required.";
+    
 
     if (Object.keys(validationErrors).length > 0) {
         setErrors(validationErrors);
