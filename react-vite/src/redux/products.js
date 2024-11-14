@@ -110,6 +110,7 @@ export const createNewProduct = (productData) => async (dispatch) => {
         dispatch(createProduct(newProduct));
         return newProduct;
     }else {
+        
         const errorData = await response.json();
         return { errors: errorData.errors };
     }
