@@ -103,18 +103,7 @@ function ProductDetailsPage() {
     
             <div>
                 <h3>Reviews</h3>
-                <div>
-                    <div>
-                        <span>★</span> 
-                        {productDetails.avgRating ? productDetails.avgRating.toFixed(1) : 'New'} 
-                        {productDetails.numReviews > 0 && (
-                            <>
-                                <span> · </span>
-                                {productDetails.numReviews === 1 ? "1 Review" : `${productDetails.numReviews} Reviews`}
-                            </>
-                        )}
-                    </div>
-                </div>
+
                 <div>
                     {currentUser && !userHasPostedReview && !isProductOwner && (
                         <OpenModalButton

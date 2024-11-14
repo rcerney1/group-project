@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
-from app.models import db, Product, Review, ProductImage
+from app.models import db, Product, ProductImage
+from app.forms import ProductForm, ProductImageForm
 from flask_login import login_required, current_user
 
 
@@ -38,102 +39,64 @@ def get_product_details(product_id):
 @product_routes.route('', methods=['POST'])
 @login_required
 def create_product():
-    data = request.get_json()
-    
-    errors = {}
-    if not data.get('name') or len(data['name']) > 50:
-        errors['name'] = "Name must be less than 50 characters"
-    if not data.get('description'):
-        errors['description'] = "Description is required"
-    
-    price = float(data['price'])
-    if not data['name']:
-        errors['name'] = 'Name is required'
-
-    if price <= 0:
-        errors['price'] = "Price must be a positive number"
-
-    if errors:
-        return jsonify({"message": "Bad Request", "errors": errors}), 400
-    
-    new_product = Product(
-        owner_id=current_user.id,
-        name=data['name'],
-        description=data['description'],
-        price=data['price'],
+    form = ProductForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        new_product = Product(
+            owner_id=current_user.id,
+            name=form.name.data,
+            description=form.description.data,
+            price=form.price.data
         )
-
-    db.session.add(new_product)
-    db.session.commit()
-
-    return jsonify(new_product.to_dict()), 201 
+        db.session.add(new_product)
+        db.session.commit()
+        return jsonify(new_product.to_dict()), 201
+    return jsonify({"message": "Bad Request", "errors": form.errors}), 400 
 
 #Edit a Product
 @product_routes.route('/<int:product_id>', methods=['PUT'])
 @login_required
 def edit_product(product_id):
-
     product = Product.query.get(product_id)
     if not product:
         return jsonify({"message": "Product couldn't be found"}), 404
-    
-    if product.owner_id is not current_user.id:
+    if product.owner_id != current_user.id:
         return jsonify({"message": "Unauthorized"}), 403
-    
-    data = request.get_json()
 
-    errors= {}
-    if not data.get('name') or len(data['name']) > 50:
-        errors['name'] = "Name must be less than 50 characters"
-    if not data.get('description'):
-        errors['description'] = "Description is required"
-   
-    price = float(data['price'])
-   
-    if price <= 0:
-        errors['price'] = "Price must be a positive number"
+    form = ProductForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        product.name = form.name.data
+        product.description = form.description.data
+        product.price = form.price.data
+        db.session.commit()
+        return jsonify(product.to_dict()), 200
 
-    if errors:
-        return jsonify({"message": "Bad Request", "errors": errors}), 400
-    
-    product.name = data['name']
-    product.description = data['description']
-    product.price = data['price']
-    
-    db.session.commit()
-
-    return jsonify(product.to_dict()), 200
+    return jsonify({"message": "Bad Request", "errors": form.errors}), 400
 
 #Add a Product Image
 @product_routes.route('/<int:product_id>/images', methods=['POST'])
 @login_required
 def add_product_image(product_id):
-
     product = Product.query.get(product_id)
     if not product:
-        return jsonify({"message": "Product coudln't be found"}), 404
-    
-    if product.owner_id is not current_user.id:
+        return jsonify({"message": "Product couldn't be found"}), 404
+    if product.owner_id != current_user.id:
         return jsonify({"message": "Unauthorized"}), 403
-    
-    data = request.get_json()
-    print('\n\nimage data: \n\n', data)
-    if not data.get('url'):
-        return jsonify({"message": "Bad Request", "errors": {"url": "URL is required"}})
-    errors ={}
-    if not data['url']:
-        errors['url'] = 'Product image required'
-    
-    new_image = ProductImage(
-        product_id=product_id,
-        url=data['url'],
-        preview=data['preview']
-    )
 
-    db.session.add(new_image)
-    db.session.commit()
+    form = ProductImageForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        new_image = ProductImage(
+            product_id=product_id,
+            url=form.url.data,
+            preview=form.preview.data
+        )
+        db.session.add(new_image)
+        db.session.commit()
+        return jsonify(new_image.to_dict()), 201
 
-    return jsonify(new_image.to_dict()), 201
+    return jsonify({"message": "Bad Request", "errors": form.errors}), 400
 
 #Update a Product Image
 @product_routes.route('/<int:product_id>/images/<int:product_image_id>', methods=['PUT'])
@@ -143,21 +106,19 @@ def update_product_image(product_id, product_image_id):
     if not product:
         return jsonify({"message": "Product not found"}), 404
 
-    
     image = ProductImage.query.filter_by(id=product_image_id, product_id=product_id).first()
     if not image:
         return jsonify({"message": "Image not found"}), 404
 
-    data = request.get_json()
-    if not data.get('url'):
-        return jsonify({"message": "Bad Request", "errors": {"url": "URL is required"}}), 400
+    form = ProductImageForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        image.url = form.url.data
+        image.preview = form.preview.data
+        db.session.commit()
+        return jsonify(image.to_dict()), 200
 
-    image.url = data['url']
-    image.preview = data.get('preview', image.preview)  
-
-    db.session.commit()
-
-    return jsonify(image.to_dict()), 200
+    return jsonify({"message": "Bad Request", "errors": form.errors}), 400
 
 #Delete a Product Image
 @product_routes.route('/images/<int:product_image_id>', methods=['DELETE'])

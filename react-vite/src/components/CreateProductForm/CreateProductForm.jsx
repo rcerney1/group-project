@@ -15,6 +15,18 @@ const CreateProductForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        const validationErrors = {};
+
+        if (!name) validationErrors.name = "Name is required";
+        if (!price || price <= 0) validationErrors.price = "Price must be a positive number";
+        if (!description) validationErrors.description = "Description is required";
+        if (!previewImageURL) validationErrors.previewImage = "Product image is required";
+
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            return;
+        }
 
         const productData = { name, price, description };
         const productResult = await dispatch(createNewProduct(productData));
@@ -37,15 +49,16 @@ const CreateProductForm = () => {
             );
 
             if (imageResult.errors) {
-                setErrors({ ...errors, previewImage: imageResult.errors.url });
+                setErrors((prevErrors) => ({
+                    ...prevErrors,
+                    previewImage: imageResult.errors.url || "Invalid image URL",
+                }));
                 return;
             }
         }
-
         await dispatch(fetchProductDetails(productResult.id));
         navigate(`/products/${productResult.id}`);
-    };
-
+    }
     return (
         <div className="create-product-form">
             <h1>Create a New Product</h1>
