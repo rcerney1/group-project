@@ -86,11 +86,12 @@ function ProductDetailsPage() {
                             </>
                         )}
                     </h3>
-  
+ 
             </div>
 
             <hr/>
     
+
             <div className="product-review">
                 <h3>Reviews</h3>
                 <div>
