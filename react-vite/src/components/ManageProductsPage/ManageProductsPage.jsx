@@ -42,7 +42,7 @@ const ManageProductsPage = () => {
                             <div className="product-details-wrapper">
                                 <h3>{product.name}</h3>
                                 <span className="product-rating">
-                                    {product.avgRating.toFixed(1)} <FaStar className="single-star" />
+                                    {product.avgRating ? product.avgRating.toFixed(1) : 'New'}<FaStar className="single-star" />
                                 </span>
                             </div>
                             <div className="product-price">${product.price.toFixed(2)}</div>

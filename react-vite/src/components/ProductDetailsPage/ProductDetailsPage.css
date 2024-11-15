@@ -130,9 +130,7 @@ hr {
 @media (max-width: 768px) {
     
     .product-detail-page-whole {
-        width: auto;
-       margin: 0;
-
+       width: auto;
     }
 
     .product-detail-upper {
@@ -155,7 +153,6 @@ hr {
 @media (max-width: 480px) {
     .product-detail-page-whole {
         width: auto;
-        margin: 0;
     }
 
     .product-detail-upper {

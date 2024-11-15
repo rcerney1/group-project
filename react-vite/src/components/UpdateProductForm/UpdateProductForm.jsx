@@ -91,7 +91,7 @@ const handleFileChange = (e) => {
     if (!productDetails) return <div>Loading...</div>;
   
     return (
-      <div className="update-product-form">
+      <div className="product-form">
           <h1>Update Your Product</h1>
 
           <form onSubmit={handleSubmit}>

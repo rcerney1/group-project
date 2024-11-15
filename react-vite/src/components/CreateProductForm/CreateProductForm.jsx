@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createNewProduct, addProductImageThunk, fetchProductDetails, deleteProductById } from "../../redux/products";
+import './CreateProductForm.css';
+
 
 const CreateProductForm = () => {
     const dispatch = useDispatch();
@@ -63,7 +65,7 @@ const CreateProductForm = () => {
     }
 
     return (
-        <div className="create-product-form">
+        <div className="product-form">
             <h1>Create a New Product</h1>
 
             <form onSubmit={handleSubmit}>
