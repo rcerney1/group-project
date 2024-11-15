@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, useNavigate } from "react-router-dom"
-import { fetchProductDetails, updateProductById, updateProductImageThunk } from "../../redux/products";
+import { fetchProductDetails, fetchProductsByCategory, updateProductById, updateProductImageThunk } from "../../redux/products";
 
 
 const UpdateProductForm = () => {
@@ -12,9 +12,15 @@ const UpdateProductForm = () => {
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
+    const [category, setCategory] = useState('')
     const [imageURL, setImageURL] = useState('')
     const [imageId, setImageId] = useState(null);
     const [errors, setErrors] = useState({});
+
+    const categories = [
+        { id: 1, name: "Marvel" },
+        { id: 2, name: "DC" },
+    ];
   
     useEffect(() => {
       dispatch(fetchProductDetails(productId));
@@ -25,6 +31,7 @@ const UpdateProductForm = () => {
           setName(productDetails.name || '');
           setPrice(productDetails.price || '');
           setDescription(productDetails.description || '');
+          setCategory(productDetails.category || '');
           if (productDetails.ProductImages?.length > 0) {
               setImageURL(productDetails.ProductImages[0].url || '');
               setImageId(productDetails.ProductImages[0].id || null);
@@ -40,6 +47,7 @@ const UpdateProductForm = () => {
     if (!name) validationErrors.name = "Product name is required.";
     if (!price || price <= 0) validationErrors.price = "Price must be a positive number.";
     if (!description) validationErrors.description = "Description is required.";
+    if (!category) validationErrors.category = "Category is required.";
     if (!imageURL) validationErrors.imageURL = "Product image is required.";
     
 
@@ -52,6 +60,7 @@ const UpdateProductForm = () => {
         name,
         price,
         description,
+        category
     };
     console.log(updatedProduct)
 
@@ -123,6 +132,23 @@ const UpdateProductForm = () => {
                   ></textarea>
                   {errors.description && <p className="error">{errors.description}</p>}
               </div>
+
+              <div>
+                    <label htmlFor="category">Category</label>
+                    <select
+                        id="category"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                    >
+                        <option value="">Select a Category</option>
+                        {categories.map((cat) => (
+                            <option key={cat.id} value={cat.id}>
+                                {cat.name}
+                            </option>
+                        ))}
+                    </select>
+                    {errors.category && <p className="error">{errors.category}</p>}
+                </div>
 
               <div>
                   <label htmlFor="imageURL">Preview Image URL</label>
