@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from app.models import db, Product, ProductImage
 from app.forms import ProductForm, ProductImageForm
 from flask_login import login_required, current_user
+from .aws_helpers import upload_file_to_s3, remove_file_from_s3
 
 
 product_routes = Blueprint('products', __name__)
@@ -86,14 +87,23 @@ def add_product_image(product_id):
 
     form = ProductImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit():
+        file = form.image.data
+        upload_response = upload_file_to_s3(file)
+
+        if "error" in upload_response:
+            return jsonify({"message": "Error uploading file", "error": upload_response["error"]}), 400
+
+        # Save the new image to the database
         new_image = ProductImage(
+            url=upload_response["url"],
             product_id=product_id,
-            url=form.url.data,
             preview=form.preview.data
         )
         db.session.add(new_image)
         db.session.commit()
+
         return jsonify(new_image.to_dict()), 201
 
     return jsonify({"message": "Bad Request", "errors": form.errors}), 400
@@ -112,10 +122,20 @@ def update_product_image(product_id, product_image_id):
 
     form = ProductImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit():
-        image.url = form.url.data
+        file = form.image.data
+        upload_response = upload_file_to_s3(file)
+
+        if "error" in upload_response:
+            return jsonify({"message": "Error uploading file", "error": upload_response["error"]}), 400
+
+        remove_file_from_s3(image.url)
+
+        image.url = upload_response["url"]
         image.preview = form.preview.data
         db.session.commit()
+
         return jsonify(image.to_dict()), 200
 
     return jsonify({"message": "Bad Request", "errors": form.errors}), 400
@@ -134,6 +154,8 @@ def delete_product_image(product_image_id):
     if not product or product.owner_id is not current_user.id:
         return jsonify({"message": "Unauthorized"}), 403
     
+    remove_file_from_s3(product_image.url)
+
     db.session.delete(product_image)
     db.session.commit()
 
