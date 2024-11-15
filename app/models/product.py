@@ -14,7 +14,6 @@ class Product(db.Model):
     price = db.Column(db.Float, nullable=False)
     name = db.Column(db.String(45), nullable=False)
     description = db.Column(db.Text, nullable=False)
-    category = db.Column(db.Integer, nullable=False)
 
      # Relationships
     owner = db.relationship('User', back_populates='products')
@@ -30,7 +29,6 @@ class Product(db.Model):
             'price': self.price,
             'name': self.name,
             'description': self.description,
-            'category': self.category,
         }
 
         if include_details:

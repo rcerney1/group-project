@@ -46,8 +46,7 @@ def create_product():
             owner_id=current_user.id,
             name=form.name.data,
             description=form.description.data,
-            price=form.price.data,
-            category=form.category.data
+            price=form.price.data
         )
         db.session.add(new_product)
         db.session.commit()
@@ -70,7 +69,6 @@ def edit_product(product_id):
         product.name = form.name.data
         product.description = form.description.data
         product.price = form.price.data
-        product.category=form.category.data
         db.session.commit()
         return jsonify(product.to_dict()), 200
 
@@ -157,9 +155,3 @@ def delete_product(product_id):
     db.session.commit()
 
     return jsonify({"message": "Successfully deleted"}), 200
-
-#Get product by category
-@product_routes.route('/category/<int:category_id>', methods=['GET'])
-def get_products_by_category(category_id):
-    products = Product.query.filter_by(category=category_id).all()
-    return jsonify({"Products": [product.to_dict(include_details=True) for product in products]}), 200
