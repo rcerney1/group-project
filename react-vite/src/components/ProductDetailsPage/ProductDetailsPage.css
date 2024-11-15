@@ -100,7 +100,7 @@ hr {
 
 .product-review button{
     padding: 0.3rem;
-    margin:0.5rem 0;
+    margin:0.5rem 1rem 0 0;
 }
 
 .product-review button:hover {

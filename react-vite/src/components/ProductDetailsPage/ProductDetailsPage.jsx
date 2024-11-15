@@ -7,10 +7,12 @@ import CreateReviewModal from "../CreateReviewModal/CreateReviewModal.jsx";
 import DeleteReviewModal from "../DeleteReviewModal/DeleteReviewModal.jsx";
 import { fetchProductDetails, fetchProducts, clearProductDetails } from "../../redux/products.js";
 import { fetchProductReviews, clearReviews } from "../../redux/reviews.js";
+import UpdateReviewModal from "../UpdateReviewModal/UpdateReviewModal.jsx";
 import { fetchFavorites, addFavorite, deleteFavorite } from "../../redux/favorites";
 import { addCartItemThunk } from "../../redux/cart.js";
 import { FaHeart } from "react-icons/fa6";
 import { CiHeart } from "react-icons/ci";
+
 
 function ProductDetailsPage() {
     const dispatch = useDispatch();
@@ -148,15 +150,46 @@ function ProductDetailsPage() {
 
                 <hr />
 
-                <div className="product-review">
-                    <h3>Reviews</h3>
-                    <div>
-                        {currentUser && !userHasPostedReview && !isProductOwner && (
-                            <OpenModalButton
-                                buttonText="Post Your Review"
-                                modalComponent={<CreateReviewModal productId={productId} />}
-                                onModalClose={() => {}}
-                            />
+            <div className="product-review">
+                <h3>Reviews</h3>
+                <div>
+                    {currentUser && !userHasPostedReview && !isProductOwner && (
+                        <OpenModalButton
+                            buttonText="Post Your Review"
+                            modalComponent={<CreateReviewModal productId={productId} />}
+                            onModalClose={() => {}}
+                        />
+                    )}
+                </div>
+          
+    
+                <div>
+                    {Array.isArray(reviews) && reviews.length > 0 ? (
+                    reviews
+                    .slice() 
+                    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) 
+                    .map((review) => (
+                    <div key={review.id}>
+                        <div className="review-details">
+                            <div> ⭐️ {review.stars} </div>
+                            <div className="review-user">{review.user?.first_name}</div>
+                            <div className="review-date">
+                                {new Date(review.created_at).toLocaleString('default', { month: 'long', year: 'numeric' })}
+                            </div>
+                        </div>
+                        <div>{review.review}</div>
+                            {currentUser?.id === review.user_id && (
+                                <>
+                                <OpenModalButton
+                                buttonText="Edit"
+                                modalComponent={<UpdateReviewModal reviewId={review.id} productId={productId} />}
+                                />
+                                 <OpenModalButton
+                                buttonText="Delete"
+                                modalComponent={<DeleteReviewModal reviewId={review.id} productId={productId} />}
+                                />
+                                </>
+
                         )}
                     </div>
 

@@ -3,6 +3,7 @@ const ADD_REVIEW = "reviews/addReview"
 const DELETE_REVIEW = "reviews/deleteReview"
 const LOAD_PRODUCT_REVIEWS ="reviews/LOAD_PRODUCT_REVIEWS"
 const CLEAR_REVIEWS = 'reviews/clearReviews'
+const UPDATE_REVIEWS = "reviews/updateReview"
 
 //Action Creators
 const addReview = (review) => ({
@@ -23,6 +24,11 @@ const loadProductReviews = (reviews) => ({
 export const clearReviews = () => ({
     type: CLEAR_REVIEWS
 });
+
+export const updateReview = (review) => ({
+    type:UPDATE_REVIEWS,
+    payload:review
+})
 
 //Thunks
 
@@ -71,6 +77,26 @@ export const thunkDeleteReview = (reviewId) => async (dispatch) => {
     }
 }
 
+//Thunk to update a review
+export const editReview = (reviewId, reviewData) => async (dispatch) => {
+        const response = await fetch(`/api/reviews/${reviewId}`, {
+            method: 'PUT',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(reviewData)
+        });
+        if (response.ok) {
+            const updatedReview = await response.json();
+            dispatch(updateReview(updatedReview)); 
+            return updatedReview; 
+        } else if (response.status < 500) {
+            const errorData = await response.json();
+            return { errors: errorData.errors };
+        } else {
+            return { errors: ["Something went wrong. Please try again"] };
+        }
+};
+
+
 const initialState = {
     reviews: [],
 };
@@ -86,6 +112,9 @@ function reviewsReducer(state = initialState, action) {
             return { ...state, reviews: action.reviews };
         case CLEAR_REVIEWS:
             return{...state, reviews: []}
+        case UPDATE_REVIEWS:
+            return {...state, reviews: state.reviews.map(review => 
+                    review.id === action.payload.id ? action.payload : review)};
         default:
             return state
     }
