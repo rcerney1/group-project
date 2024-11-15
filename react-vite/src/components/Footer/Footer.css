@@ -1,0 +1,47 @@
+.footer {
+    background-color: #e5dfdf;
+    margin-top: 3rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.team-member-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.member-image img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.member-info {
+    margin-bottom: 5px;
+}
+
+.member-icons {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.member-icons a {
+    color: black;
+    transition: color 0.3s ease;
+}
+
+.member-icons a:hover {
+    color: #0077b5; 
+}
