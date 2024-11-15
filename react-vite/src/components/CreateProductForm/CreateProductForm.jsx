@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createNewProduct, addProductImageThunk, fetchProductDetails, deleteProductById } from "../../redux/products";
+import './CreateProductForm.css';
+
 
 const CreateProductForm = () => {
     const dispatch = useDispatch();
@@ -11,7 +13,7 @@ const CreateProductForm = () => {
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("1")
-    const [previewImageURL, setPreviewImageURL] = useState("");
+    const [previewImageFile, setPreviewImageFile] = useState(null);
     const [errors, setErrors] = useState({});
 
     const handleSubmit = async (e) => {
@@ -23,7 +25,8 @@ const CreateProductForm = () => {
         if (!price || price <= 0) validationErrors.price = "Price must be a positive number";
         if (!description) validationErrors.description = "Description is required";
         if (!category) validationErrors.category = "Category is required";
-        if (!previewImageURL) validationErrors.previewImage = "Product image is required";
+        if (!previewImageFile) validationErrors.previewImage = "Product image is required";
+
 
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
@@ -34,18 +37,14 @@ const CreateProductForm = () => {
         const productResult = await dispatch(createNewProduct(productData));
         
         if (productResult.errors) {
-            console.log(productResult.errors)
             setErrors(productResult.errors);
             return;
         }
-        if (!previewImageURL){
-            setErrors({...errors, previewImage: 'Product Image Required'})
-            return;
-        }
-        if (previewImageURL) {
+       
+        if (previewImageFile) {
             const imageResult = await dispatch(
                 addProductImageThunk(productResult.id, {
-                    url: previewImageURL,
+                    file: previewImageFile,
                     preview: true,
                 })
             );
@@ -53,7 +52,7 @@ const CreateProductForm = () => {
             if (imageResult.errors) {
                 setErrors((prevErrors) => ({
                     ...prevErrors,
-                    previewImage: imageResult.errors.url || "Invalid image URL",
+                    previewImage: imageResult.errors.url || "Invalid image upload",
                 }));
                 await dispatch(deleteProductById(productResult.id))
                 return;
@@ -68,8 +67,16 @@ const CreateProductForm = () => {
         { id: 2, name: "DC" },
     ];
 
+
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setPreviewImageFile(file); // Set the selected file
+    }
+
+
     return (
-        <div className="create-product-form">
+        <div className="product-form">
             <h1>Create a New Product</h1>
 
             <form onSubmit={handleSubmit}>
@@ -131,13 +138,12 @@ const CreateProductForm = () => {
 
                 <div>
                     <label>
-                        Preview Image URL:
+                        Preview Image:
+
                         <input
-                            type="text"
-                            value={previewImageURL}
-                            onChange={(e) => setPreviewImageURL(e.target.value)}
-                            placeholder="Enter image URL"
-                            
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
                         />
                     </label>
                     {errors.previewImage && <p className="error">{errors.previewImage}</p>}

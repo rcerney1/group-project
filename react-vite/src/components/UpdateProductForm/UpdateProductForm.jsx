@@ -13,7 +13,7 @@ const UpdateProductForm = () => {
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('')
-    const [imageURL, setImageURL] = useState('')
+    const [imageFile, setImageFile] = useState(null);
     const [imageId, setImageId] = useState(null);
     const [errors, setErrors] = useState({});
 
@@ -33,7 +33,6 @@ const UpdateProductForm = () => {
           setDescription(productDetails.description || '');
           setCategory(productDetails.category || '');
           if (productDetails.ProductImages?.length > 0) {
-              setImageURL(productDetails.ProductImages[0].url || '');
               setImageId(productDetails.ProductImages[0].id || null);
           }
       }
@@ -48,8 +47,7 @@ const UpdateProductForm = () => {
     if (!price || price <= 0) validationErrors.price = "Price must be a positive number.";
     if (!description) validationErrors.description = "Description is required.";
     if (!category) validationErrors.category = "Category is required.";
-    if (!imageURL) validationErrors.imageURL = "Product image is required.";
-    
+    if (!imageFile) validationErrors.imageFile = "Product image is required.";
 
     if (Object.keys(validationErrors).length > 0) {
         setErrors(validationErrors);
@@ -62,7 +60,6 @@ const UpdateProductForm = () => {
         description,
         category
     };
-    console.log(updatedProduct)
 
     const updateResult = await dispatch(updateProductById(productId, updatedProduct));
     
@@ -71,31 +68,39 @@ const UpdateProductForm = () => {
         return;
     }
 
-    const imageResult = await dispatch(
-        updateProductImageThunk(productId, imageId, {
-            url: imageURL,
-            preview: true,
-        })
-    );
-    
-    if (imageResult.errors) {
-        setErrors((prevErrors) => ({
-            ...prevErrors,
-            imageURL: imageResult.errors.url || "Invalid image URL",
-        }));
-        return;
+    if (imageFile) {
+        const imageResult = await dispatch(
+            updateProductImageThunk(productId, imageId, {
+                file: imageFile, // Pass the new file
+                preview: true,
+            })
+        );
+
+        if (imageResult.errors) {
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                imageFile: imageResult.errors.url || "Invalid image upload",
+            }));
+            return;
+        }
     }
 
     await dispatch(fetchProductDetails(productId));
     navigate(`/products/${productId}`);
+
+};
+
+const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setImageFile(file);
 };
  
   
     if (!productDetails) return <div>Loading...</div>;
   
     return (
-      <div className="update-product-form">
-          <h1>Update Your Product</h1>
+        <div className="product-form">
+            <h1>Update Your Product</h1>
 
           <form onSubmit={handleSubmit}>
               <div>
@@ -149,18 +154,16 @@ const UpdateProductForm = () => {
                     </select>
                     {errors.category && <p className="error">{errors.category}</p>}
                 </div>
-
-              <div>
-                  <label htmlFor="imageURL">Preview Image URL</label>
-                  <input
-                      id="imageURL"
-                      type="text"
-                      value={imageURL}
-                      onChange={(e) => setImageURL(e.target.value)}
-                      placeholder="Enter image URL"
-                  />
-                  {errors.imageURL && <p className="error">{errors.imageURL}</p>}
-              </div>
+                <div>
+                    <label htmlFor="imageFile">Preview Image</label>
+                    <input
+                        id="imageFile"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                    />
+                    {errors.imageFile && <p className="error">{errors.imageFile}</p>}
+                </div>
 
               <button type="submit">Update Product</button>
           </form>

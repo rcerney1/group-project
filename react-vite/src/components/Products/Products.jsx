@@ -14,6 +14,7 @@ const Products = () => {
     const dispatch = useDispatch();
     const products = useSelector((state) => Object.values(state.products.allProducts));
     const favoriteIds = useSelector((state) => state.favorites.favoriteIds); // Favorite product IDs
+    const currentUser = useSelector((state) => state.session.user);
 
         // Transform favoriteIds to just product IDs for easy checks
     const favoriteProductIds = favoriteIds.map(fav => fav.product_id);
@@ -94,29 +95,32 @@ const Products = () => {
                 return (
                     <div key={product.id} className="product-tile">
                         <div className="image-container">
-                            {/* Heart icon positioned in the top-right corner */}
-                            {isFavorited ? (
-                                <FaHeart
-                                className={`favorite-icon favorited`}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    handleFavoriteToggle(e, product.id)
-                                }}
-                                /> ) : (
-                                <CiHeart
-                                className={`favorite-icon`}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    handleFavoriteToggle(e, product)
-                                }}
-                                style={{
-                                    fontSize: '2rem',          
-                                    color: '#ffffff',             
-                                    filter: 
-                                        'drop-shadow(0px 0px 1px black)'                                 
-                                }}
-                            />
-                            )}
+                            <div className="favorite-icon-container">
+                                {currentUser && ( // Check if user is logged in
+                                    isFavorited ? (
+                                        <FaHeart
+                                            className={`favorite-icon favorited`}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                handleFavoriteToggle(e, product.id)
+                                            }}
+                                        /> ) : (
+                                        <CiHeart
+                                            className={`favorite-icon`}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                handleFavoriteToggle(e, product)
+                                            }}
+                                            style={{
+                                                fontSize: '2rem',          
+                                                color: '#ffffff',             
+                                                filter: 
+                                                    'drop-shadow(0px 0px 1px black)'                                 
+                                            }}
+                                        />
+                                    )
+                                )}
+                            </div>    
                             
                             {/* Wrap image with NavLink to make it clickable */}
                             <NavLink to={`/products/${product.id}`}>
