@@ -99,8 +99,8 @@ const handleFileChange = (e) => {
     if (!productDetails) return <div>Loading...</div>;
   
     return (
-      <div className="product-form">
-          <h1>Update Your Product</h1>
+        <div className="product-form">
+            <h1>Update Your Product</h1>
 
           <form onSubmit={handleSubmit}>
               <div>
@@ -154,7 +154,7 @@ const handleFileChange = (e) => {
                     </select>
                     {errors.category && <p className="error">{errors.category}</p>}
                 </div>
-
+                <div>
                     <label htmlFor="imageFile">Preview Image</label>
                     <input
                         id="imageFile"
