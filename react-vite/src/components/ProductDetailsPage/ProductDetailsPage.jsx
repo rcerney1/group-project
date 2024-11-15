@@ -83,7 +83,7 @@ function ProductDetailsPage() {
                                             <CiHeart
                                                 className="favorite-icon"
                                                 onClick={(e) => {
-                                                    console.log("\nClicking On Heart---productDetails.id:\n", productDetails.id)
+                                                    // console.log("\nClicking On Heart---productDetails.id:\n", productDetails.id)
                                                     e.preventDefault();
                                                     handleFavoriteToggle(e, productDetails)
                                                 }}

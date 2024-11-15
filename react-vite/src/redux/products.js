@@ -79,7 +79,6 @@ export const fetchProductDetails = (productId) => async (dispatch) => {
 
 export const fetchProducts = () => async (dispatch) => {
     const response = await fetch("/api/products/");
-    console.log('\n\n\nDDD\n\n\n: ',window.location)
     
     if (response.ok) {
         const data = await response.json();
