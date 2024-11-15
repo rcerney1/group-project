@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal.jsx'
 import { thunkCreateReview } from "../../redux/reviews.js";
+import {fetchProductDetails} from '../../redux/products.js'
 import './CreateReviewModal.css'
 
 function CreateReviewModal({ productId }) {
@@ -32,6 +33,7 @@ function CreateReviewModal({ productId }) {
         if (result.errors) {
             setServerError(result.errors)
         } else {
+            dispatch(fetchProductDetails(productId))
             closeModal();
         }
     };

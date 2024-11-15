@@ -6,14 +6,16 @@
     max-width: 90%;
     margin: 0 auto;
     text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .review-modal-container h2 {
     margin-bottom: 20px;
+
 }
 
 .review-modal-container textarea {
-    width: 100%;
+    width: 95%;
     height: 100px;
     margin-bottom: 20px;
     padding: 10px;

@@ -50,6 +50,11 @@
   color: black;
 }
 
+.cart-item h3:hover {
+  color:#e74c3c;
+  transition: all 0.2s;
+}
+
 .cart-item-img {
   width: 100px;
   height: 140px;

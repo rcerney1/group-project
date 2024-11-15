@@ -42,7 +42,7 @@ const Favorites = () => {
                                     <div className="product-details-wrapper">
                                         <h3>{favorite.product?.name}</h3>
                                         <span className="product-rating">
-                                            {favorite.product?.avgRating?.toFixed(1)} <FaStar className="single-star" />
+                                            {favorite.product.avgRating ? favorite.product?.avgRating?.toFixed(1) : 'New'} <FaStar className="single-star" />
                                         </span>
                                     </div>
                                     <div className="product-price">${favorite.product?.price}</div>
