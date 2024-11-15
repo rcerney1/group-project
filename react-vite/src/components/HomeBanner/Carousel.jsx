@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import "./Carousel.css";
-
 
 const slides = [
   {
@@ -37,10 +37,10 @@ const slides = [
   },
 ];
 
-export default function Carousel(){
+export default function Carousel() {
   const [slide, setSlide] = useState(0);
   const navigate = useNavigate();
-
+  const products = useSelector((state) => Object.values(state.products.allProducts));
 
   const nextSlide = () => {
     setSlide((prevSlide) =>
@@ -57,7 +57,16 @@ export default function Carousel(){
   useEffect(() => {
     const interval = setInterval(nextSlide, 3500);
     return () => clearInterval(interval);
-  }, []); 
+  }, []);
+
+  const handleImageClick = (productId) => {
+    const productExists = products.some((product) => product.id === productId);
+    if (productExists) {
+      navigate(`/products/${productId}`);
+    } else {
+      window.alert("Unfortunately, this item is no longer available.");
+    }
+  };
 
   return (
     <div className="main">
@@ -73,7 +82,7 @@ export default function Carousel(){
             alt={item.alt}
             key={idx}
             className={slide === idx ? "slide" : "slide slide-hidden"}
-            onClick={() => navigate(`/products/${item.product_id}`)}
+            onClick={() => handleImageClick(item.product_id)}
           />
         ))}
         <BsArrowRightCircleFill
@@ -95,6 +104,3 @@ export default function Carousel(){
     </div>
   );
 }
-
-
-
