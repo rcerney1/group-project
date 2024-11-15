@@ -13,7 +13,6 @@ import { addCartItemThunk } from "../../redux/cart.js";
 import { FaHeart } from "react-icons/fa6";
 import { CiHeart } from "react-icons/ci";
 
-
 function ProductDetailsPage() {
     const dispatch = useDispatch();
     const { productId } = useParams();
@@ -21,16 +20,15 @@ function ProductDetailsPage() {
     const productDetails = useSelector((state) => state.products.productDetails);
     const reviews = useSelector((state) => state.reviews.reviews);
     const currentUser = useSelector((state) => state.session.user);
-    const favoriteIds = useSelector((state) => state.favorites.favoriteIds); 
+    const favoriteIds = useSelector((state) => state.favorites.favoriteIds);
 
-  
     const favoriteProductIds = useMemo(
         () => favoriteIds.map((fav) => fav.product_id),
         [favoriteIds]
     );
 
     useEffect(() => {
-        dispatch(fetchFavorites()); 
+        dispatch(fetchFavorites());
         dispatch(clearReviews());
         dispatch(fetchProductDetails(productId));
         dispatch(fetchProductReviews(productId));
@@ -53,19 +51,15 @@ function ProductDetailsPage() {
         dispatch(addCartItemThunk(productId)).then(() => navigate('/cart'));
     };
 
-
     const handleFavoriteToggle = async (e, productId) => {
         e.preventDefault();
-        console.log("\ninside  of  handleFavoriteToggle---product: \n", productId)         
         if (favoriteProductIds.includes(productId)) {
-            await dispatch(deleteFavorite(productId));                    
-        } else {           
+            await dispatch(deleteFavorite(productId));
+        } else {
             await dispatch(addFavorite(productId));
             await dispatch(fetchFavorites());
-           
         }
     };
-
 
     return (
         <div className="product-detail-content-container">
@@ -74,24 +68,16 @@ function ProductDetailsPage() {
                     <div className="product-detail-imgs">
                         <div className="product-detail-img-wrapper">
                             <div className="image-with-icon">
-                                {/* Favorite Toggle Icon */}
                                 <div className="favorite-icon-container">
                                     {isFavorited ? (
                                         <FaHeart
                                             className="favorite-icon favorited"
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                handleFavoriteToggle(e, productDetails.id)
-                                            }}
+                                            onClick={(e) => handleFavoriteToggle(e, productDetails.id)}
                                         />
                                     ) : (
                                         <CiHeart
                                             className="favorite-icon"
-                                            onClick={(e) => {
-                                                console.log("\nClicking On Heart---productDetails.id:\n", productDetails.id)
-                                                e.preventDefault();
-                                                handleFavoriteToggle(e, productDetails)
-                                            }}
+                                            onClick={(e) => handleFavoriteToggle(e, productDetails.id)}
                                             style={{
                                                 fontSize: '2rem',
                                                 color: '#ffffff',
@@ -105,7 +91,7 @@ function ProductDetailsPage() {
                                     src={productDetails.ProductImages[0]?.url}
                                     alt={productDetails.name}
                                 />
-                            </div>    
+                            </div>
                             <div>
                                 {productDetails.ProductImages.slice(1).map((image) => (
                                     <img
@@ -128,7 +114,6 @@ function ProductDetailsPage() {
                             <button onClick={handleAddtoCartClick}>Add to Cart</button>
                         </div>
                         <div>{productDetails.description}</div>
-                        
                     </div>
                 </div>
 
@@ -150,57 +135,21 @@ function ProductDetailsPage() {
 
                 <hr />
 
-            <div className="product-review">
-                <h3>Reviews</h3>
-                <div>
-                    {currentUser && !userHasPostedReview && !isProductOwner && (
-                        <OpenModalButton
-                            buttonText="Post Your Review"
-                            modalComponent={<CreateReviewModal productId={productId} />}
-                            onModalClose={() => {}}
-                        />
-                    )}
-                </div>
-          
-    
-                <div>
-                    {Array.isArray(reviews) && reviews.length > 0 ? (
-                    reviews
-                    .slice() 
-                    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) 
-                    .map((review) => (
-                    <div key={review.id}>
-                        <div className="review-details">
-                            <div> ⭐️ {review.stars} </div>
-                            <div className="review-user">{review.user?.first_name}</div>
-                            <div className="review-date">
-                                {new Date(review.created_at).toLocaleString('default', { month: 'long', year: 'numeric' })}
-                            </div>
-                        </div>
-                        <div>{review.review}</div>
-                            {currentUser?.id === review.user_id && (
-                                <>
-                                <OpenModalButton
-                                buttonText="Edit"
-                                modalComponent={<UpdateReviewModal reviewId={review.id} productId={productId} />}
-                                />
-                                 <OpenModalButton
-                                buttonText="Delete"
-                                modalComponent={<DeleteReviewModal reviewId={review.id} productId={productId} />}
-                                />
-                                </>
-
+                <div className="product-review">
+                    <h3>Reviews</h3>
+                    <div>
+                        {currentUser && !userHasPostedReview && !isProductOwner && (
+                            <OpenModalButton
+                                buttonText="Post Your Review"
+                                modalComponent={<CreateReviewModal productId={productId} />}
+                            />
                         )}
                     </div>
-
                     <div>
                         {Array.isArray(reviews) && reviews.length > 0 ? (
                             reviews
                                 .slice()
-                                .sort(
-                                    (a, b) =>
-                                        new Date(b.created_at) - new Date(a.created_at)
-                                )
+                                .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
                                 .map((review) => (
                                     <div key={review.id}>
                                         <div className="review-details">
@@ -209,23 +158,28 @@ function ProductDetailsPage() {
                                                 {review.user?.first_name}
                                             </div>
                                             <div className="review-date">
-                                                {new Date(review.created_at).toLocaleString(
-                                                    'default',
-                                                    { month: 'long', year: 'numeric' }
-                                                )}
+                                                {new Date(review.created_at).toLocaleString('default', {
+                                                    month: 'long',
+                                                    year: 'numeric',
+                                                })}
                                             </div>
                                         </div>
                                         <div>{review.review}</div>
                                         {currentUser?.id === review.user_id && (
-                                            <OpenModalButton
-                                                buttonText="Delete"
-                                                modalComponent={
-                                                    <DeleteReviewModal
-                                                        reviewId={review.id}
-                                                        productId={productId}
-                                                    />
-                                                }
-                                            />
+                                            <>
+                                                <OpenModalButton
+                                                    buttonText="Edit"
+                                                    modalComponent={
+                                                        <UpdateReviewModal reviewId={review.id} productId={productId} />
+                                                    }
+                                                />
+                                                <OpenModalButton
+                                                    buttonText="Delete"
+                                                    modalComponent={
+                                                        <DeleteReviewModal reviewId={review.id} productId={productId} />
+                                                    }
+                                                />
+                                            </>
                                         )}
                                         <hr />
                                     </div>
