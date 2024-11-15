@@ -70,7 +70,7 @@ function ProductDetailsPage() {
                             <div className="image-with-icon">
                                 <div className="favorite-icon-container">
 
-                                    {currentUser && ( // Only show the heart icons if the user is logged in
+                                    {currentUser && (
                                         isFavorited ? (
                                             <FaHeart
                                                 className="favorite-icon favorited"

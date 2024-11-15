@@ -40,7 +40,7 @@
 
 
 .star-rating .filled {
-    color: #000000; /* Color for selected or filled stars */
+    color: #000000;
 }
 
 button:disabled {
