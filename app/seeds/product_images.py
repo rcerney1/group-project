@@ -5,36 +5,58 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_product_images():
     product_image_one = ProductImage(
-        product_id=1 , url='https://m.media-amazon.com/images/I/71u3LnGdzJL._SL1154_.jpg',
+        product_id=1 , url='https://comiccachebucket.s3.amazonaws.com/SpiderMan.jpg',
         preview=True 
         )
     product_image_two = ProductImage(
-        product_id=2 , url='https://images-ext-1.discordapp.net/external/zzdvu5iJuPx3pFzjq2mzlD_OJjrU_YIZA4IbzrVIspw/%3Fv%3D1706292157%26width%3D600/https/hotoffthepresscomics.com/cdn/shop/products/202008-0000206277.jpg?format=webp&width=399&height=614',
+        product_id=2 , url='https://comiccachebucket.s3.amazonaws.com/BatMan.jpg',
         preview=True
         )
     product_image_three = ProductImage(
-        product_id=3 , url='https://weirdsciencemarvelcomics.com/wp-content/uploads/2024/07/x-men-1-featured-image.jpg?w=960',
+        product_id=3 , url='https://comiccachebucket.s3.amazonaws.com/Xmen.jpg',
         preview=True
         )
     product_image_four = ProductImage(
-        product_id=4 , url='https://m.media-amazon.com/images/I/41y5UwOsgmL._AC_UF1000,1000_QL80_.jpg',
+        product_id=4 , url='https://comiccachebucket.s3.amazonaws.com/Watchmen.jpg',
         preview=True
         )
     product_image_five = ProductImage(
-        product_id=5 , url='https://i.etsystatic.com/18403314/r/il/81de8c/3370251830/il_794xN.3370251830_54cy.jpg',
+        product_id=5 , url='https://comiccachebucket.s3.amazonaws.com/Superman.jpg',
         preview=True
         )
     product_image_six = ProductImage(
-        product_id=6 , url='https://cdn.marvel.com/u/prod/marvel/i/mg/1/c0/6467d294959d6/clean.jpg',
+        product_id=6 , url='https://comiccachebucket.s3.amazonaws.com/IronMan.jpg',
         preview=True
         )
-
-    db.session.add(product_image_one)
-    db.session.add(product_image_two)
-    db.session.add(product_image_three)
-    db.session.add(product_image_four)
-    db.session.add(product_image_five)
-    db.session.add(product_image_six)
+    product_image_seven = ProductImage(
+        product_id=7, url='https://comiccachebucket.s3.amazonaws.com/CaptainAmerica.jpg',
+        preview=True
+    )
+    product_image_eight = ProductImage(
+        product_id=8, url='https://comiccachebucket.s3.amazonaws.com/Hulk.jpg',
+        preview=True
+    )
+    product_image_nine = ProductImage(
+        product_id=9, url='https://comiccachebucket.s3.amazonaws.com/FantasticFour.jpg',
+        preview=True
+    )
+    product_image_ten = ProductImage(
+        product_id=10, url='https://comiccachebucket.s3.amazonaws.com/BatmanDetective.jpg',
+        preview=True
+    )
+    product_image_eleven = ProductImage(
+        product_id=11, url='https://comiccachebucket.s3.amazonaws.com/Flash.jpg',
+        preview=True
+    )
+    product_image_twelve = ProductImage(
+        product_id=12, url='https://comiccachebucket.s3.amazonaws.com/GreenLantern.jpg',
+        preview=True
+    )
+    db.session.add_all([
+        product_image_one, product_image_two, product_image_three, product_image_four, product_image_five,
+        product_image_six, product_image_seven, product_image_eight, product_image_nine, product_image_ten,
+        product_image_eleven, product_image_twelve,
+    ])
     db.session.commit()
 
 
