@@ -12,6 +12,16 @@ button {
     font-family: 'Bangers', sans-serif;
 }
 
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+  
+.main-container {
+    flex:1;
+}
+
 body {
     background-color: #FAF0E6;
     margin: 0;
