@@ -159,12 +159,13 @@ export const fetchUserProducts = () => async (dispatch) => {
 
 
 export const addProductImageThunk = (productId, imageData) => async (dispatch) => {
+    const formData = new FormData();
+    formData.append("image", imageData.file);
+    formData.append("preview", imageData.preview);
+
     const response = await fetch(`/api/products/${productId}/images`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(imageData),
+        body: formData,
     });
 
     if (response.ok) {
@@ -175,15 +176,16 @@ export const addProductImageThunk = (productId, imageData) => async (dispatch) =
         const errorData = await response.json();
         return { errors: errorData.errors };
     }
-}
+};
 
 export const updateProductImageThunk = (productId, imageId, imageData) => async (dispatch) => {
+    const formData = new FormData();
+    formData.append("image", imageData.file);
+    formData.append("preview", imageData.preview);
+
     const response = await fetch(`/api/products/${productId}/images/${imageId}`, {
         method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(imageData),
+        body: formData,
     });
 
     if (response.ok) {
