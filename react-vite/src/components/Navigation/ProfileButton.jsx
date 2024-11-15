@@ -35,12 +35,21 @@ function ProfileButton() {
 
   const closeMenu = () => setShowMenu(false);
 
+  // const logout = (e) => {
+  //   e.preventDefault();
+  //   dispatch(thunkLogout());
+  //   closeMenu();
+  //   navigate("/");
+  // };
+
   const logout = (e) => {
     e.preventDefault();
-    dispatch(thunkLogout());
-    closeMenu();
-    navigate("/");
-  };
+    dispatch(thunkLogout())
+        .then(() => {
+            closeMenu();
+            window.location.href = "/"; // Forces a full page reload to the homepage
+        });
+};
 
   return (
     <>
