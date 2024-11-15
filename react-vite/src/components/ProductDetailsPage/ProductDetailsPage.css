@@ -20,7 +20,35 @@
 .product-detail-img-wrapper {
     display: flex;
     flex-direction: column;
-    max-width: 100%;
+    max-width: 100%;    
+}
+
+.image-with-icon {
+    position: relative; 
+    width: 250px; 
+    height: 300px;
+}
+
+.favorite-icon-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10; 
+}
+
+.favorite-icon {
+    font-size: 2rem;
+    color: #ffffff;
+    filter: drop-shadow(0px 0px 1px black);
+    cursor: pointer;
+}
+
+.favorite-icon.favorited {
+    color: #e74c3c;
+}
+
+.favorite-icon:hover {
+    color: #ff6666;
 }
 
 .product-detail-preview-img {
