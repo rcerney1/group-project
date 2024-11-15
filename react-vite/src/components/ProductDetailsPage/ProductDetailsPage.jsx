@@ -9,6 +9,7 @@ import { fetchProductDetails, fetchProducts } from "../../redux/products.js";
 import { fetchProductReviews, clearReviews } from "../../redux/reviews.js";
 import { addCartItemThunk} from "../../redux/cart.js";
 import { clearProductDetails } from "../../redux/products.js";
+import UpdateReviewModal from "../UpdateReviewModal/UpdateReviewModal.jsx";
 
 
 function ProductDetailsPage() {
@@ -121,11 +122,16 @@ function ProductDetailsPage() {
                         </div>
                         <div>{review.review}</div>
                             {currentUser?.id === review.user_id && (
-                            <OpenModalButton
+                                <>
+                                <OpenModalButton
+                                buttonText="Edit"
+                                modalComponent={<UpdateReviewModal reviewId={review.id} productId={productId} />}
+                                />
+                                 <OpenModalButton
                                 buttonText="Delete"
                                 modalComponent={<DeleteReviewModal reviewId={review.id} productId={productId} />}
-                                
-                            />
+                                />
+                                </>
                         )}
                         <hr />
                     </div>

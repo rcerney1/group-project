@@ -25,6 +25,12 @@
   font-size: 15px;
 }
 
+.no-user li:hover{
+  cursor: pointer;
+  color: blue;
+  transition: all 0.2s;
+}
+
 .profile-username,
 .profile-email {
   border-bottom: 1px solid rgb(236, 228, 228);
@@ -88,9 +94,14 @@
 
 .nav-bar-elements li a {
   text-decoration: none;
-  font-weight: bold;
   display: flex;
   align-items: center;
+}
+
+.nav-bar-elements li a:hover {
+  cursor: pointer;
+  color: blue;
+  transition: all 0.2s;
 }
 
 .nav-bar-elements button {
