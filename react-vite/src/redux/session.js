@@ -1,3 +1,5 @@
+import { fetchFavorites } from "./favorites"; 
+
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
 
@@ -19,6 +21,7 @@ export const thunkAuthenticate = () => async (dispatch) => {
 		}
 
 		dispatch(setUser(data));
+    dispatch(fetchFavorites());
 	}
 };
 
@@ -32,6 +35,7 @@ export const thunkLogin = (credentials) => async dispatch => {
   if(response.ok) {
     const data = await response.json();
     dispatch(setUser(data));
+    dispatch(fetchFavorites());
   } else if (response.status < 500) {
     const errorMessages = await response.json();
     return errorMessages

@@ -1,12 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, BooleanField
-from wtforms.validators import DataRequired, URL
-
+from wtforms import FileField, BooleanField
+from flask_wtf.file import FileAllowed, FileRequired
+from app.api.aws_helpers import ALLOWED_EXTENSIONS
 
 
 class ProductImageForm(FlaskForm):
-    url = StringField('URL', validators=[
-        DataRequired(message="URL is required"),
-        URL(message="Must be a valid URL")
-    ])
+    image = FileField("Image File", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
     preview = BooleanField('Preview', default=True)
