@@ -3,8 +3,9 @@
 .profile-dropdown {
   position: absolute;
   z-index: 99;  
-  top: 60px;
-  right: 20px;
+  top: 100%;
+  left:0;
+  right: 21px;
   background-color: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 0.8rem 0;
@@ -13,9 +14,21 @@
   border-radius: 8px;
 }
 
+@media (max-width: 1450px) {
+  .profile-dropdown{
+    left: auto;
+  }
+}
+
 .profile-dropdown li {
   padding: 0.7rem 1.2rem;
   font-size: 15px;
+}
+
+.no-user li:hover{
+  cursor: pointer;
+  color: blue;
+  transition: all 0.2s;
 }
 
 .profile-username,
@@ -81,9 +94,14 @@
 
 .nav-bar-elements li a {
   text-decoration: none;
-  font-weight: bold;
   display: flex;
   align-items: center;
+}
+
+.nav-bar-elements li a:hover {
+  cursor: pointer;
+  color: blue;
+  transition: all 0.2s;
 }
 
 .nav-bar-elements button {

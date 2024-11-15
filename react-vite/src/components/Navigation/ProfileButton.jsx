@@ -39,14 +39,15 @@ function ProfileButton() {
   const logout = (e) => {
     e.preventDefault();
     dispatch(thunkLogout())
-        .then(() => {
-            closeMenu();
-            window.location.href = "/"; // Forces a full page reload to the homepage
-        });
-};
+
+    .then(() => {
+      closeMenu();
+      window.location.href='/'
+    })
+  };
 
   return (
-    <>
+    <div style={{position: 'relative'}}>
       <button onClick={toggleMenu}>
         <FaUserCircle />
       </button>
@@ -67,7 +68,7 @@ function ProfileButton() {
               </li>
             </>
           ) : (
-            <>
+            <div className="no-user">
               <OpenModalMenuItem
                 itemText="Log In"
                 onItemClick={closeMenu}
@@ -78,11 +79,11 @@ function ProfileButton() {
                 onItemClick={closeMenu}
                 modalComponent={<SignupFormModal />}
               />
-            </>
+            </div>
           )}
         </ul>
       )}
-    </>
+    </div>
   );
 }
 
