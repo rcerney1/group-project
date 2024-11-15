@@ -71,7 +71,7 @@ const CreateProductForm = () => {
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-        setPreviewImageFile(file); // Set the selected file
+        setPreviewImageFile(file);
     }
 
 

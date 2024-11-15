@@ -35,7 +35,6 @@
     object-fit: cover;
 }
 
-/* Heart icon styling */
 .favorite-icon {
     position: absolute;
     top: 10px;
@@ -43,16 +42,14 @@
     font-size: 24px;
     cursor: pointer;
     z-index: 10;
-    color: gray; /* Default color when not favorited */
-    transition: color 0.3s ease; /* Smooth color transition */  
+    color: gray;
+    transition: color 0.3s ease;
 }
 
-/* Change color when favorited */
 .favorite-icon.favorited {
     color: red;
 }
 
-/* Styling for product info */
 .product-info {
     padding-top: 10px;
 }

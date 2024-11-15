@@ -32,9 +32,9 @@ const Products = () => {
 
  
     const handleFavoriteToggle = async (e, productId) => {
-        e.preventDefault(); // Prevents navigating to the product page on icon click        
+        e.preventDefault();       
         if (favoriteProductIds.includes(productId)) {
-            await dispatch(deleteFavorite(productId)); // Remove from favorites if already favorited                       
+            await dispatch(deleteFavorite(productId));                      
         } else {           
             await dispatch(addFavorite(productId));
             // await dispatch(fetchFavorites());
@@ -43,7 +43,7 @@ const Products = () => {
     };
 
     useEffect(() => {
-        dispatch(fetchFavorites()); // Fetch favorites on initial mount and when `favoriteIds` changes
+        dispatch(fetchFavorites());
     }, [dispatch, favoriteIds.length]);
 
    
@@ -53,7 +53,7 @@ const Products = () => {
         } else {
             dispatch(fetchProductsByCategory(selectedCategory))
         }
-        dispatch(fetchFavorites()); // Load favorites when component mounts
+        dispatch(fetchFavorites());
     }, [dispatch, selectedCategory]);
 
 
@@ -62,14 +62,14 @@ const Products = () => {
         if (selectedProductId) {
             await dispatch(deleteProductById(selectedProductId));
             setIsModalOpen(false);
-            setSelectedProductId(null);  // Clear selected product ID after delete
+            setSelectedProductId(null);
         }
     };
 
 
     const closeDeleteModal = () => {
         setIsModalOpen(false);
-        setSelectedProductId(null);  // Clear selected product ID on modal close
+        setSelectedProductId(null);
     };
 
     return (
@@ -96,7 +96,7 @@ const Products = () => {
                     <div key={product.id} className="product-tile">
                         <div className="image-container">
                             <div className="favorite-icon-container">
-                                {currentUser && ( // Check if user is logged in
+                                {currentUser && (
                                     isFavorited ? (
                                         <FaHeart
                                             className={`favorite-icon favorited`}
@@ -122,7 +122,6 @@ const Products = () => {
                                 )}
                             </div>    
                             
-                            {/* Wrap image with NavLink to make it clickable */}
                             <NavLink to={`/products/${product.id}`}>
                                 <img
                                     src={product?.previewImage || '/default-image.jpg'}
