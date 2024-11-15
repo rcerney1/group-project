@@ -88,6 +88,16 @@ export const fetchProducts = () => async (dispatch) => {
     }
 };
 
+export const fetchProductsByCategory = (categoryId) => async (dispatch) => {
+    const response = await fetch(`/api/products/category/${categoryId}`);
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(loadProducts(data.Products)); // Reuse the existing action to load products
+    } else {
+        console.error("Failed to fetch products by category");
+    }
+};
+
 export const fetchProductById = (id) => async (dispatch) => {
     const response = await fetch(`/api/products/${id}`);
     if (response.ok) {

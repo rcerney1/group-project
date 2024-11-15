@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProducts, deleteProductById } from '../../redux/products';
+import { fetchProducts, fetchProductsByCategory, deleteProductById } from '../../redux/products';
 import { fetchFavorites, deleteFavorite, addFavorite } from '../../redux/favorites';
 import { NavLink } from 'react-router-dom';
 import './Products.css';
@@ -18,9 +18,15 @@ const Products = () => {
         // Transform favoriteIds to just product IDs for easy checks
     const favoriteProductIds = favoriteIds.map(fav => fav.product_id);
     
-
+    const [selectedCategory, setSelectedCategory] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProductId, setSelectedProductId] = useState(null);
+
+    const categories = [
+        { id: null, name: "All" },
+        { id: 1, name: "Marvel" },
+        { id: 2, name: "DC" },
+    ];
 
 
  
@@ -41,9 +47,13 @@ const Products = () => {
 
    
     useEffect(() => {
-        dispatch(fetchProducts());
+        if (selectedCategory === null){
+            dispatch(fetchProducts());
+        } else {
+            dispatch(fetchProductsByCategory(selectedCategory))
+        }
         dispatch(fetchFavorites()); // Load favorites when component mounts
-    }, [dispatch]);
+    }, [dispatch, selectedCategory]);
 
 
 
@@ -65,6 +75,18 @@ const Products = () => {
         <div>
 
         <Carousel />
+        <div className="category-filter">
+            {categories.map((category) => (
+                <button
+                    key={category.id}
+                    className={selectedCategory === category.id ? "active" : ""}
+                    onClick={() => setSelectedCategory(category.id)}
+                >
+                   {category.name}
+                </button>
+            ))}
+        </div>
+
         <div className="products-container">
             
             {products.map((product) => {

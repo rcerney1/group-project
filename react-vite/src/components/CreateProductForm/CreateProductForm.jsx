@@ -10,6 +10,7 @@ const CreateProductForm = () => {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
+    const [category, setCategory] = useState("1")
     const [previewImageURL, setPreviewImageURL] = useState("");
     const [errors, setErrors] = useState({});
 
@@ -21,6 +22,7 @@ const CreateProductForm = () => {
         if (!name) validationErrors.name = "Name is required";
         if (!price || price <= 0) validationErrors.price = "Price must be a positive number";
         if (!description) validationErrors.description = "Description is required";
+        if (!category) validationErrors.category = "Category is required";
         if (!previewImageURL) validationErrors.previewImage = "Product image is required";
 
         if (Object.keys(validationErrors).length > 0) {
@@ -28,7 +30,7 @@ const CreateProductForm = () => {
             return;
         }
 
-        const productData = { name, price, description };
+        const productData = { name, price, description, category };
         const productResult = await dispatch(createNewProduct(productData));
         
         if (productResult.errors) {
@@ -58,7 +60,13 @@ const CreateProductForm = () => {
         }
         await dispatch(fetchProductDetails(productResult.id));
         navigate(`/products/${productResult.id}`);
-    }
+    };
+
+    const categories = [
+        { id: 1, name: "Marvel" },
+        { id: 2, name: "DC" },
+    ];
+
     return (
         <div className="create-product-form">
             <h1>Create a New Product</h1>
@@ -100,6 +108,24 @@ const CreateProductForm = () => {
                         ></textarea>
                     </label>
                     {errors.description && <p className="error">{errors.description}</p>}
+                </div>
+
+                <div>
+                    <label>
+                        Category:
+                        <select 
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                        >
+                            <option value="">Select a Category</option>
+                            {categories.map((category) => (
+                                <option key={category.id} value={category.id}>
+                                    {category.name}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+                    {errors.category && <p className="error">{errors.category}</p>}
                 </div>
 
                 <div>
