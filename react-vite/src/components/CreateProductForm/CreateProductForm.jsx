@@ -24,9 +24,9 @@ const CreateProductForm = () => {
         if (!name) validationErrors.name = "Name is required";
         if (!price || price <= 0) validationErrors.price = "Price must be a positive number";
         if (!description) validationErrors.description = "Description is required";
-
         if (!category) validationErrors.category = "Category is required";
         if (!previewImageFile) validationErrors.previewImage = "Product image is required";
+
 
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
@@ -60,7 +60,6 @@ const CreateProductForm = () => {
         }
         await dispatch(fetchProductDetails(productResult.id));
         navigate(`/products/${productResult.id}`);
-
     };
 
     const categories = [
@@ -69,10 +68,12 @@ const CreateProductForm = () => {
     ];
 
 
+
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         setPreviewImageFile(file); // Set the selected file
     }
+
 
     return (
         <div className="product-form">
