@@ -12,6 +12,7 @@ const CreateProductForm = () => {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
+    const [category, setCategory] = useState("1")
     const [previewImageFile, setPreviewImageFile] = useState(null);
     const [errors, setErrors] = useState({});
 
@@ -23,14 +24,16 @@ const CreateProductForm = () => {
         if (!name) validationErrors.name = "Name is required";
         if (!price || price <= 0) validationErrors.price = "Price must be a positive number";
         if (!description) validationErrors.description = "Description is required";
+        if (!category) validationErrors.category = "Category is required";
         if (!previewImageFile) validationErrors.previewImage = "Product image is required";
+
 
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
             return;
         }
 
-        const productData = { name, price, description };
+        const productData = { name, price, description, category };
         const productResult = await dispatch(createNewProduct(productData));
         
         if (productResult.errors) {
@@ -57,12 +60,20 @@ const CreateProductForm = () => {
         }
         await dispatch(fetchProductDetails(productResult.id));
         navigate(`/products/${productResult.id}`);
-    }
+    };
+
+    const categories = [
+        { id: 1, name: "Marvel" },
+        { id: 2, name: "DC" },
+    ];
+
+
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         setPreviewImageFile(file); // Set the selected file
     }
+
 
     return (
         <div className="product-form">
@@ -109,7 +120,26 @@ const CreateProductForm = () => {
 
                 <div>
                     <label>
+                        Category:
+                        <select 
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                        >
+                            <option value="">Select a Category</option>
+                            {categories.map((category) => (
+                                <option key={category.id} value={category.id}>
+                                    {category.name}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+                    {errors.category && <p className="error">{errors.category}</p>}
+                </div>
+
+                <div>
+                    <label>
                         Preview Image:
+
                         <input
                             type="file"
                             accept="image/*"

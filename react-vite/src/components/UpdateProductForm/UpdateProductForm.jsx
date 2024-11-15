@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, useNavigate } from "react-router-dom"
-import { fetchProductDetails, updateProductById, updateProductImageThunk } from "../../redux/products";
+import { fetchProductDetails, fetchProductsByCategory, updateProductById, updateProductImageThunk } from "../../redux/products";
 
 
 const UpdateProductForm = () => {
@@ -12,9 +12,15 @@ const UpdateProductForm = () => {
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
+    const [category, setCategory] = useState('')
     const [imageFile, setImageFile] = useState(null);
     const [imageId, setImageId] = useState(null);
     const [errors, setErrors] = useState({});
+
+    const categories = [
+        { id: 1, name: "Marvel" },
+        { id: 2, name: "DC" },
+    ];
   
     useEffect(() => {
       dispatch(fetchProductDetails(productId));
@@ -25,6 +31,7 @@ const UpdateProductForm = () => {
           setName(productDetails.name || '');
           setPrice(productDetails.price || '');
           setDescription(productDetails.description || '');
+          setCategory(productDetails.category || '');
           if (productDetails.ProductImages?.length > 0) {
               setImageId(productDetails.ProductImages[0].id || null);
           }
@@ -39,8 +46,8 @@ const UpdateProductForm = () => {
     if (!name) validationErrors.name = "Product name is required.";
     if (!price || price <= 0) validationErrors.price = "Price must be a positive number.";
     if (!description) validationErrors.description = "Description is required.";
+    if (!category) validationErrors.category = "Category is required.";
     if (!imageFile) validationErrors.imageFile = "Product image is required.";
-    
 
     if (Object.keys(validationErrors).length > 0) {
         setErrors(validationErrors);
@@ -51,6 +58,7 @@ const UpdateProductForm = () => {
         name,
         price,
         description,
+        category
     };
 
     const updateResult = await dispatch(updateProductById(productId, updatedProduct));
@@ -91,8 +99,8 @@ const handleFileChange = (e) => {
     if (!productDetails) return <div>Loading...</div>;
   
     return (
-      <div className="product-form">
-          <h1>Update Your Product</h1>
+        <div className="product-form">
+            <h1>Update Your Product</h1>
 
           <form onSubmit={handleSubmit}>
               <div>
@@ -131,6 +139,22 @@ const handleFileChange = (e) => {
               </div>
 
               <div>
+                    <label htmlFor="category">Category</label>
+                    <select
+                        id="category"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                    >
+                        <option value="">Select a Category</option>
+                        {categories.map((cat) => (
+                            <option key={cat.id} value={cat.id}>
+                                {cat.name}
+                            </option>
+                        ))}
+                    </select>
+                    {errors.category && <p className="error">{errors.category}</p>}
+                </div>
+                <div>
                     <label htmlFor="imageFile">Preview Image</label>
                     <input
                         id="imageFile"

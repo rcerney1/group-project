@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, FloatField, TextAreaField
+from wtforms import StringField, FloatField, TextAreaField, IntegerField
 from wtforms.validators import DataRequired, Length, NumberRange
 
 
@@ -15,4 +15,8 @@ class ProductForm(FlaskForm):
     ])
     description = TextAreaField('Description', validators=[
         DataRequired(message="Description is required"),
+    ])
+    category = IntegerField('Category', validators=[
+        DataRequired(message="Category is required"),
+        NumberRange(min=1, max=2, message="Category must be between 1 and 2")
     ])
