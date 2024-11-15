@@ -74,28 +74,30 @@ function ProductDetailsPage() {
                             <div className="image-with-icon">
                                 {/* Favorite Toggle Icon */}
                                 <div className="favorite-icon-container">
-                                    {isFavorited ? (
-                                        <FaHeart
-                                            className="favorite-icon favorited"
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                handleFavoriteToggle(e, productDetails.id)
-                                            }}
-                                        />
-                                    ) : (
-                                        <CiHeart
-                                            className="favorite-icon"
-                                            onClick={(e) => {
-                                                console.log("\nClicking On Heart---productDetails.id:\n", productDetails.id)
-                                                e.preventDefault();
-                                                handleFavoriteToggle(e, productDetails)
-                                            }}
-                                            style={{
-                                                fontSize: '2rem',
-                                                color: '#ffffff',
-                                                filter: 'drop-shadow(0px 0px 1px black)',
-                                            }}
-                                        />
+                                    {currentUser && ( // Only show the heart icons if the user is logged in
+                                        isFavorited ? (
+                                            <FaHeart
+                                                className="favorite-icon favorited"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    handleFavoriteToggle(e, productDetails.id)
+                                                }}
+                                            />
+                                        ) : (
+                                            <CiHeart
+                                                className="favorite-icon"
+                                                onClick={(e) => {
+                                                    console.log("\nClicking On Heart---productDetails.id:\n", productDetails.id)
+                                                    e.preventDefault();
+                                                    handleFavoriteToggle(e, productDetails)
+                                                }}
+                                                style={{
+                                                    fontSize: '2rem',
+                                                    color: '#ffffff',
+                                                    filter: 'drop-shadow(0px 0px 1px black)',
+                                                }}
+                                            />
+                                        )    
                                     )}
                                 </div>
                                 <img
