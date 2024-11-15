@@ -21,6 +21,7 @@ export default function Layout() {
           {isLoaded && <Outlet />}
         </div>
         <Footer />
+        <Modal />
       </ModalProvider>
     </>
   );
