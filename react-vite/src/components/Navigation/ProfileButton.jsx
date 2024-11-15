@@ -45,14 +45,15 @@ function ProfileButton() {
   const logout = (e) => {
     e.preventDefault();
     dispatch(thunkLogout())
-        .then(() => {
-            closeMenu();
-            window.location.href = "/"; // Forces a full page reload to the homepage
-        });
-};
+
+    .then(() => {
+      closeMenu();
+      window.location.href='/'
+    })
+  };
 
   return (
-    <>
+    <div style={{position: 'relative'}}>
       <button onClick={toggleMenu}>
         <FaUserCircle />
       </button>
@@ -88,7 +89,7 @@ function ProfileButton() {
           )}
         </ul>
       )}
-    </>
+    </div>
   );
 }
 

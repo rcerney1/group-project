@@ -9,7 +9,7 @@ def seed_product_images():
         preview=True 
         )
     product_image_two = ProductImage(
-        product_id=2 , url='https://hotoffthepresscomics.com/cdn/shop/products/202008-0000206277.jpg?v=1706292157&width=600',
+        product_id=2 , url='https://images-ext-1.discordapp.net/external/zzdvu5iJuPx3pFzjq2mzlD_OJjrU_YIZA4IbzrVIspw/%3Fv%3D1706292157%26width%3D600/https/hotoffthepresscomics.com/cdn/shop/products/202008-0000206277.jpg?format=webp&width=399&height=614',
         preview=True
         )
     product_image_three = ProductImage(

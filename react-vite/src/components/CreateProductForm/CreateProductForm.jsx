@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createNewProduct, addProductImageThunk, fetchProductDetails } from "../../redux/products";
+import { createNewProduct, addProductImageThunk, fetchProductDetails, deleteProductById } from "../../redux/products";
 
 const CreateProductForm = () => {
     const dispatch = useDispatch();
@@ -53,6 +53,7 @@ const CreateProductForm = () => {
                     ...prevErrors,
                     previewImage: imageResult.errors.url || "Invalid image URL",
                 }));
+                await dispatch(deleteProductById(productResult.id))
                 return;
             }
         }
