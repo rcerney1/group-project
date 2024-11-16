@@ -76,17 +76,41 @@ const Products = () => {
         <div>
 
         <Carousel />
-        <div className="category-filter">
-            {categories.map((category) => (
+        <div className='category-section'>
+            <h2>Browse By Category</h2>
+            <div className="category-filter">
                 <button
-                    key={category.id}
-                    className={selectedCategory === category.id ? "active" : ""}
-                    onClick={() => setSelectedCategory(category.id)}
+                    className='marvel'
+                    data-label="Marvel"
+                    onClick={() => setSelectedCategory(1)}
                 >
-                   {category.name}
+                     <img 
+                        src="https://images.seeklogo.com/logo-png/28/2/marvel-comics-logo-png_seeklogo-289327.png?v=638670053540000000" 
+                        alt="Marvel" 
+                        className="icon" 
+                    />
                 </button>
-            ))}
+                <button
+                    className='dc'
+                    data-label="DC"
+                    onClick={() => setSelectedCategory(2)}
+                >
+                   <img 
+                        src="https://seeklogo.com/images/D/dc-comics-logo-8721593E89-seeklogo.com.png" 
+                        alt="DC" 
+                        className="dc-icon" 
+                    />     
+                </button>
+                <button
+                    className='all'
+                    data-label="All"
+                    onClick={() => setSelectedCategory(null)}
+                >
+                    All
+                </button>
+            </div>
         </div>
+        
 
         <div className="products-container">
             
