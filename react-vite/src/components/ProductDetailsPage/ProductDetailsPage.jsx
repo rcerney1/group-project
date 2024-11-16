@@ -70,7 +70,7 @@ function ProductDetailsPage() {
                             <div className="image-with-icon">
                                 <div className="favorite-icon-container">
 
-                                    {currentUser && ( // Only show the heart icons if the user is logged in
+                                    {currentUser && (
                                         isFavorited ? (
                                             <FaHeart
                                                 className="favorite-icon favorited"
@@ -83,7 +83,7 @@ function ProductDetailsPage() {
                                             <CiHeart
                                                 className="favorite-icon"
                                                 onClick={(e) => {
-                                                    console.log("\nClicking On Heart---productDetails.id:\n", productDetails.id)
+                                                    // console.log("\nClicking On Heart---productDetails.id:\n", productDetails.id)
                                                     e.preventDefault();
                                                     handleFavoriteToggle(e, productDetails)
                                                 }}

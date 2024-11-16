@@ -71,7 +71,7 @@ const UpdateProductForm = () => {
     if (imageFile) {
         const imageResult = await dispatch(
             updateProductImageThunk(productId, imageId, {
-                file: imageFile, // Pass the new file
+                file: imageFile,
                 preview: true,
             })
         );

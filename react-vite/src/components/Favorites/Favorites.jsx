@@ -7,14 +7,14 @@ import { FaStar, FaHeart } from 'react-icons/fa';
 
 const Favorites = () => {
     const dispatch = useDispatch();
-    const favorites = useSelector((state) => state.favorites?.favoriteIds || []); // Ensure favorites is an array
+    const favorites = useSelector((state) => state.favorites?.favoriteIds || []);
     useEffect(() => {
-        dispatch(fetchFavorites()); // Fetch all favorites initially
+        dispatch(fetchFavorites());
     }, [dispatch]);
 
 
     const handleRemoveFavorite = (productId) => {
-        dispatch(deleteFavorite(productId)); //  Remove from favorites
+        dispatch(deleteFavorite(productId));
     };
 
     return (
@@ -33,7 +33,7 @@ const Favorites = () => {
                                     <FaHeart
                                         className="favorite-icon favorited"
                                         onClick={(e) => {
-                                            e.preventDefault(); // Prevent navigation on click
+                                            e.preventDefault();
                                             handleRemoveFavorite(favorite.product?.id);
                                         }}
                                     />
