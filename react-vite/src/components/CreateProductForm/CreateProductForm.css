@@ -19,6 +19,7 @@
     font-size: 15px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
+    background-color: white;
     border-radius: 5px;
     box-sizing: border-box;
   }
@@ -31,6 +32,12 @@
     border-radius: 5px;
     resize: none;
     box-sizing: border-box;
+  }
+
+  .product-form select {
+    width:100%;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
   }
   
   
