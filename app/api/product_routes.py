@@ -97,7 +97,6 @@ def add_product_image(product_id):
         if "error" in upload_response:
             return jsonify({"message": "Error uploading file", "error": upload_response["error"]}), 400
 
-        # Save the new image to the database
         new_image = ProductImage(
             url=upload_response["url"],
             product_id=product_id,
